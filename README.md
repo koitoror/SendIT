@@ -28,7 +28,7 @@ parcel.
 2.	Only the user who created the parcel delivery order can cancel the order.  
 
 ## Installation
-For the UI designs to work you need a working browser like google chrome or mozilla firefox
+For the UI designs to work you need a working browser like Google Chrome or Mozilla Firefox
 
 Clone the repository into your local environment
 
