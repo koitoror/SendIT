@@ -1,4 +1,4 @@
-[![GitHub]](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # SendIT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories. .
