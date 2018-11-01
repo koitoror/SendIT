@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SendIT :: Parcel Delivery Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
+    <!-- Load icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <a href="index.html" class="logo">SendIT</a>
+        <div class="header-right">
+            <a class="active" href="order.html">New Delivery Order</a>
+            <a href="profile.html">User Profile</a>
+            <a href="index.html">Log Out</a>
+
+
+        </div>
+    </div>
+
+    <div>
+
+        <h2>Welcome, Non-Admin(User)</h2>
+        <p><em>SendIT</em> - the fastest web-app for parcel delivery's</p>
+
+    </div>
+
+    <section id="dashboard">
+        <div class="container">
+            <div id="avatar">
+                <img src="static/images/attendant-avatar.jpg" alt="Image">
+            </div>
+            <h2>Dashboard, <small>Rodham Hillary</small></h2>
+
+            <hr>
+            
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <legend>New Parcel Delivery Order</legend>
+            <form class="myForm">
+                    <fieldset>
+                        <div class="form-group">
+                            <!-- Username -->
+                            <label for="parcel-name">Parcel-Name</label>
+                            <input type="text" id="parcel-name" class="form-control" rows="1">
+                        </div>
+                    
+                        <div class="form-group">
+                            <!-- E-mail -->
+                            <label for="order-price">Order-Price</label>
+                            <input type="number" min="0" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                                <!-- Username -->
+                                <label for="PickUp">PickUp Location</label>
+                                <input type="text" value="MAIN WAREHOUSE" id="PickUp" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                                <!-- Username -->
+                                <label for="parcel-name">Destination-Location</label>
+                                <input type="text" id="parcel-name" class="form-control">
+                        </div>
+
+                        <!-- <div class="form-group"> -->
+                                <!-- Button -->
+                                <!-- <button class="button bg-dark">Place Order </button>
+                        </div> -->
+                        <div>
+                            <a href="profile.html" class="button bg-dark">Place New Delivery Order</a>
+                        </div>
+                    </fieldset>
+                </form>
+        </div>
+    </section>
+    <footer class="text-center bg-dark">
+        <p>
+            SendIT, Copyright <sup>&copy;</sup> 2018
+        </p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+
+</body>
+
+</html>
