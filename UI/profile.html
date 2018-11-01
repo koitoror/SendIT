@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SendIT :: Parcel Delivery Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
+    <!-- Load icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <a href="index.html" class="logo">SendIT</a>
+        <div class="header-right">
+            <a href="order.html">New Delivery Order</a>
+            <a class="active" href="profile.html">User Profile</a>
+            <a href="index.html">Log Out</a>
+
+
+        </div>
+    </div>
+
+    <div>
+
+        <h2>Welcome, Non-Admin(User)</h2>
+        <p><em>SendIT</em> - the fastest web-app for parcel delivery's</p>
+
+    </div>
+
+    <section id="dashboard">
+        <div class="container">
+            <div id="avatar">
+                <img src="static/images/attendant-avatar.jpg" alt="Image">
+            </div>
+            <h2>Dashboard, <small>Rodham Hillary</small></h2>
+
+            <hr>
+            
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div>
+                <a href="order.html" class="button bg-dark float-right">New Delivery Order</a>
+            </div>
+            <legend>All My Parcel Delivery Orders</legend>
+            <div>
+                <table class="dashboard">
+                        <tr class="table">
+
+                            <th>Order ID</th>
+                            <th>Parcel Name</th>      
+                            <th>Price</th>
+                            <th>Date Ordered</th>
+                            <th>Order Status</th>
+                            <th>Cancel Order</th>    
+                            <th>PickUp Location</th>    
+                            <th>Present Location</th>
+                            <th>Destination Location</th>
+                            <th>Date Modified</th>
+                        
+                            </tr>
+                            <tr>
+                        
+                            <td>4329571081</td>
+                            <td>JUNK</td>
+                            <td>$100</td>
+                            <td>01-11-2018</td>
+                            <td>IN TRANSIT</td>  
+                            <td><a href="profile.html"><i class="fa fa-close"></i></a></td>      
+                            <td>MAIN WAREHOUSE</td>
+                            <td>CITY OFFICE DISPATCHES</td>
+                            <td><input type="text" name="Destination" value="MOMBASA"></td>
+                            <td>01-11-2018</td>
+                        
+                        
+                            </tr>
+                            <tr>
+                        
+                            <td>4329571082</td>
+                            <td>LUGGAGE</td>
+                            <td>$100</td>
+                            <td>01-11-2018</td>
+                            <td>DELIVERED</td>
+                            <td></td>      
+                            <td>MAIN WAREHOUSE</td>
+                            <td>CITY OFFICE DISPATCHES</td>
+                            <td>MOMBASA</td>
+                            <td>01-11-2018</td>
+                        
+                            
+                            </tr>
+                            <tr>
+                        
+                            <td>4329571083</td>
+                            <td>TRASH</td>
+                            <td>$100</td>
+                            <td>01-11-2018</td>
+                            <td>IN TRANSIT</td>
+                            <td><a href="profile.html"><i class="fa fa-close"></i></a></td>        
+                            <td>MAIN WAREHOUSE</td>
+                            <td>CITY OFFICE DISPATCHES</td>
+                            <td><input type="text" name="Destination" value="MOMBASA"></td>
+                            <td>01-11-2018</td>
+                        
+                            
+                            </tr>
+                            <tr>
+                        
+                            <td>4329571084</td>
+                            <td>BUL$</td>
+                            <td>$100</td>
+                            <td>01-11-2018</td>
+                            <td>IN TRANSIT</td>
+                            <td><a href="profile.html"><i class="fa fa-close"></i></a></td>        
+                            <td>MAIN WAREHOUSE</td>
+                            <td>CITY OFFICE DISPATCHES</td>
+                            <td><input type="text" name="Destination" value="MOMBASA"></td>
+                            <td>01-11-2018</td>
+                        
+                            
+                            </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <footer class="text-center bg-dark">
+        <p>
+            SendIT, Copyright <sup>&copy;</sup> 2018
+        </p>
+    </footer>
+
+    <script src="static/js/main.js"></script>
+
+</body>
+
+</html>
