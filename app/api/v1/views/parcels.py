@@ -73,3 +73,35 @@ class Parcel(Resource):
         parcel.delete_parcel(parcelId)
         return '',204
 
+
+@api.route("/users/<int:userId>/parcels")
+@api.param("userId", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class User(Resource):
+    """Displays a single parcel item and lets you delete them."""
+    
+    @api.doc("list_all_parcel_delivery_orders_by_user", security='apikey')
+    @api.response(404, "Parcel delivery orders Not Found")
+    @api.marshal_list_with(parcels, envelope="parcels")
+    @token_required
+    def get(self):
+        """Fetch/list all parcel delivery orders by a specific/single user"""
+        return parcel.get_all()
+
+@api.route("/parcels/<int:parcelId>/cancel")
+@api.param("ParcelId", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class UserParcel(Resource):
+    """Displays a single parcel parcel deliver order and lets you cancel the order."""
+
+    @api.marshal_with(parcels)
+    @api.doc('updates/cancels a parcel delivery order by user', security='apikey')
+    @api.expect(update_parcels_user)
+    @token_required
+    def put(self, parcelId):
+        """Cancels a single Parcel delivery order by user."""
+        args = update_parcel_parser_as_user.parse_args()
+        invalid_data = validate_update_parcel(parcel, args)
+        if invalid_data:
+            return invalid_data
+        return parcel.update_parcel(parcelId, args)
