@@ -20,7 +20,6 @@ branches:
   only:
   - ft-parcels-endpoints-161738123
   - develop
-  - master
 
 after_success:
   - coveralls
