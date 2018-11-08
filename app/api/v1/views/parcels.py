@@ -38,3 +38,38 @@ class ParcelList(Resource):
         """Fetch/list all parcel delivery orders"""
         return parcel.get_all()
 
+@api.route("/parcels/<int:parcelId>")
+@api.param("parcelId", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class Parcel(Resource):
+    """Displays a single parcel item and lets you delete them."""
+
+    @api.marshal_with(parcels)
+    @api.doc('get one parcel delivery order', security='apikey')
+    @token_required
+    def get(self, parcelId):
+        """Fetch/display a specific/single parcel delivery order."""
+        
+        return parcel.get_one(parcelId)
+
+    @api.marshal_with(parcels)
+    @api.doc('updates a parcel delivery order for admin', security='apikey')
+    @api.expect(update_parcels_admin)
+    @token_required
+    def put(self, parcelId):
+        """Updates a single Parcel delivery order by admin."""
+        args = update_parcel_parser_as_admin.parse_args()
+        invalid_data = validate_update_parcel(parcel, args)
+        if invalid_data:
+            return invalid_data
+        return parcel.update_parcel(parcelId, args)
+    
+    @api.marshal_with(parcels)
+    @api.doc('deletes a parcel delivery order', security='apikey')
+    @api.response(204, 'Parcel Deleted')
+    @token_required
+    def delete(self, parcelId):
+        """Deletes a single Parcel delivery order."""
+        parcel.delete_parcel(parcelId)
+        return '',204
+
