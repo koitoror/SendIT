@@ -18,6 +18,17 @@ user = UserClass()
 class ParcelList(Resource):
     """Displays a list of all parcels and lets you POST to add new parcel delivery orders."""
 
+    @api.expect(post_parcels)
+    @api.doc('creates a parcel delivery order', security='apikey')
+    @api.response(201, "Created")
+    @token_required
+    def post(self):
+        """Creates a new Parcel delivery order."""
+        args = parcel_parser.parse_args()
+        invalid_data = validate_parcel_data(args)
+        if invalid_data:
+            return invalid_data
+        return parcel.create_parcel(args),201
 
     @api.doc("list_parcel_delivery_orders", security='apikey')
     @api.response(404, "Parcel delivery orders Not Found")
