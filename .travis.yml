@@ -1,0 +1,31 @@
+language: python
+python:
+  - "3.5"
+# command to install dependencies
+install:
+  - "pip install -r requirements.txt"
+  - "pip install coveralls"
+
+# before_script:
+#   - psql -c 'create database store_manager;' -U postgres
+#   - psql -c "create user kamar with password 'pass@word1' createdb;" -U postgres
+#   - python app/database.py
+
+
+# command to run tests
+script:
+  - pytest --cov
+
+branches:
+  only:
+  - ft-parcels-endpoints-161738123
+  - develop
+  - master
+
+after_success:
+  - coveralls
+
+env:
+  global:
+    - FLASK_CONFIG='development'
+    - SECRET_KEY = "some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
