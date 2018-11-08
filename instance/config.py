@@ -5,8 +5,8 @@ class Config(object):
     """Parent configuration class."""
     DEBUG = False
     TESTING = False
-    SECRET_KEY = os.getenv('SECRET_KEY' or 'some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING')
-    # SECRET_KEY="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
+    # SECRET_KEY = os.getenv('SECRET_KEY' or 'some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING')
+    SECRET_KEY="some-very-long-string-of-random-characters-CHANGE-TO-YOUR-LIKING"
     # FLASK_CONFIG= 'development'
     # RESTPLUS_VALIDATE = True
     # ERROR_404_HELP = False
