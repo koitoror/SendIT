@@ -3,9 +3,9 @@ from flask_restplus import Namespace, fields, reqparse
 
 api = Namespace("parcels", description="parcels related operations")
 
-parcels = api.model(
+parcel = api.model(
     "parcels", {
-    "id": fields.Integer(),
+    "parcel_id": fields.Integer(),
     "user_id": fields.Integer(),
     "date_ordered": fields.String(),
     "date_modified": fields.String(),
