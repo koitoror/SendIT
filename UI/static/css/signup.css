@@ -42,9 +42,17 @@
 }
 
 /* Float cancel and signup buttons and add an equal width */
-#id02 .cancelbtn, .signupbtn {
+#id02 .cancelbtn {
 float: left;
-width: 50%;
+width: 35%;
+
+}
+
+#id02 .signupbtn {
+  float: right;
+  width: 60%;
+  margin-right: 0.2px;
+
 }
 
 /* Add padding to container elements */
