@@ -2,6 +2,17 @@ html,
 body {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
+  /* background-image: url("../images/delivery_man.png");
+  background-repeat: no-repeat, repeat; */
+
+}
+
+.index {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  background-image: url("../images/delivery_man.png");
+  background-repeat: no-repeat, repeat;
+
 }
 
 * {

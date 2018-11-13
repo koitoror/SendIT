@@ -207,23 +207,33 @@ header a:hover{
 
 /*Dashboard*/
 
-#dashboard h2 .account{
-	color: #e8491d;
+#dashboard h3 {
+  color: #e8491d;
+  text-align: center;
 
+}
+
+#avatar img{
+	border-radius:50%;
+	max-height: 70px;
+  max-width: 70px;
+  float: left;
+  overflow: auto;
 }
 
 #avatar{
 	margin-left: 10px;
   float: left;
+  /* display: inline-block; */
   overflow: auto; 
 }
 
-#avatar img{
-	border-radius:50%;
-	max-height: 100px;
-  max-width: 100px;
-  float: left;
-  overflow: auto;
+p {
+  line-height: 1.0;
+} 
+
+b {
+  line-height: 1.6;
 }
 
 /*Article*/
