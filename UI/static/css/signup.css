@@ -5,7 +5,8 @@
 #id02 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  /* margin: 5px 0 22px 0; */
+  margin: 8px 0;
   display: inline-block;
   border: none;
   background: #f1f1f1;
@@ -70,7 +71,7 @@ width: 50%;
   background-color: #fefefe;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 30%; /* Could be more or less, depending on screen size */
 }
 
 /* Style the horizontal ruler */
