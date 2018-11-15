@@ -23,7 +23,7 @@ class Parcel(object):
         data["parcel_id"] = int(len(self.no_of_parcels) + 1)
         data["date_ordered"] = str(datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
         data["user_id"] = user_id
-
+        data["cancel_order"] = False
         self.no_of_parcels.append(data)
         return data
     
@@ -69,7 +69,7 @@ class Parcel(object):
             api.abort(404, "Parcel delivery order for the user does not exist")
         return parcel
 
-    def get_all(self):
+    def get_all(self, admin):
         """Method for returning all parcels."""
         parcels = [parcels for parcels in self.no_of_parcels]
         if not parcels:
