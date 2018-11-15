@@ -6,6 +6,7 @@ from flask_testing import TestCase
 # local imports
 from run import app
 
+
 class TestDevelopmentConfig(TestCase):
     """TestCase for the development config."""
 
@@ -17,6 +18,7 @@ class TestDevelopmentConfig(TestCase):
     def test_development_configs(self):
         self.assertTrue(app.config['DEBUG'] is True)
         self.assertFalse(app.config['SECRET_KEY'] is "thisismysecretkey")
+
 
 class TestTestingConfig(TestCase):
     """TestCase for the testing config."""
@@ -30,6 +32,7 @@ class TestTestingConfig(TestCase):
         self.assertTrue(app.config['DEBUG'] is True)
         self.assertTrue(app.config['TESTING'] is True)
 
+
 class TestProductionConfig(TestCase):
     """TestCase for the development config."""
 
@@ -41,7 +44,6 @@ class TestProductionConfig(TestCase):
     def test_production_configs(self):
         self.assertFalse(app.config['DEBUG'] is True)
         self.assertFalse(app.config['TESTING'] is True)
-
 
 
 if __name__ == "__main__":
