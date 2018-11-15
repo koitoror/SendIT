@@ -135,13 +135,14 @@ POST  `/api/v1/auth/login` | Logs in a user
 ###  Endpoints
 **EndPoint** | **Functionality**
 --- | ---
-GET  `/api/v1/parcels` | Fetch all parcel delivery orders
-POST  `/api/v1/parcels` | Create a parcel delivery order
-GET  `/api/v1/parcels/<parcelId>` | Fetch a single parcel delivery order 
-DELETE  `/api/v1/parcels/<parcelId>` | Delete a parcel delivery order
+GET  `/api/v1/parcels` | Fetch all parcel delivery orders for all users by admin
+POST  `/api/v1/parcels` | Create a parcel delivery order by user
+GET  `/api/v1/parcels/<parcelId>` | Fetch a single parcel delivery order by user
+DELETE  `/api/v1/parcels/<parcelId>` | Delete a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>` | Update a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>/cancel` | Cancel a parcel delivery order by user
-GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders
+GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders by user
+
 
 
 # API Documentation
