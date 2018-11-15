@@ -4,8 +4,6 @@ from app.api.v1.models.user import user_class
 
 from run import app
 
-# user_class = user_class
-# parcel_class = parcel_class
 
 class BaseTestCase(TestCase):
     """ Base Tests """
@@ -22,38 +20,38 @@ class BaseTestCase(TestCase):
             "password": "johndoe123",
             "email": "johndoe@gmail.com",
             "username": "johndoe"
-            })
+        })
 
         self.user_class.user_id = ''
 
         self.parcel_class = parcel_class
         self.parcel = self.parcel_class.create_parcel_test({
-            "parcel_name": "TRAVEL BAG", 
+            "parcel_name": "TRAVEL BAG",
             "pickup_location": "DROP VAN",
             "destination_location": "MOMBASA",
             "price": 1000
-            })
-        
+        })
+
         self.no_parcel_name = self.parcel_class.create_parcel_test({
-            "parcel_name": " ", 
+            "parcel_name": " ",
             "pickup_location": "DROP VAN",
             "destination_location": "MOMBASA",
             "price": 1000
-            })
+        })
 
         self.no_price = self.parcel_class.create_parcel_test({
-            "parcel_name": "TRAVEL BAG", 
+            "parcel_name": "TRAVEL BAG",
             "pickup_location": "DROP VAN",
             "destination_location": "MOMBASA"
 
-            })
+        })
 
         self.no_destination_location = self.parcel_class.create_parcel_test({
-            "parcel_name": "TRAVEL BAG", 
+            "parcel_name": "TRAVEL BAG",
             "pickup_location": "DROP VAN",
             "destination_location": " ",
             "price": 1000
-            })
+        })
 
     def tearDown(self):
         self.user_class.no_of_users.clear()
