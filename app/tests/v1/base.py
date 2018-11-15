@@ -17,7 +17,7 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         self.user_class = user_class
-        self.data = self.user_class.create_user({
+        self.user = self.user_class.create_user({
             "confirm": "johndoe123",
             "password": "johndoe123",
             "email": "johndoe@gmail.com",
@@ -27,7 +27,7 @@ class BaseTestCase(TestCase):
         self.user_class.user_id = ''
 
         self.parcel_class = parcel_class
-        self.data = self.parcel_class.create_parcel_test({
+        self.parcel = self.parcel_class.create_parcel_test({
             "parcel_name": "TRAVEL BAG", 
             "pickup_location": "DROP VAN",
             "destination_location": "MOMBASA",
