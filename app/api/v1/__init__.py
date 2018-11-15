@@ -10,17 +10,18 @@ api_v1 = Blueprint('api1', __name__)
 
 
 authorizations = {
-    'apikey' : {
-        'type' : 'apiKey',
-        'in' : 'header',
-        'name' : 'x-access-token'
+    'apikey': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'x-access-token'
     }
 }
 
 
-api = Api(api_v1, title='SendIT API :: v1', doc='/', version='1.0', authorizations=authorizations,
-    description='SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.',
-)
+api = Api(
+    api_v1, title='SendIT API :: v1', doc='/', version='1.0',
+    authorizations=authorizations,
+    description='SendIT is a courier service that helps to deliver parcels.',)
 
 
 del api.namespaces[0]
