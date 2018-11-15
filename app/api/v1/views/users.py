@@ -63,7 +63,7 @@ class LoginUser(Resource):
                     # if not Bcrypt().check_password_hash(x["password"], args["password"]):
                     #     return {"warning": "Invalid password"},400
 
-                    token = user_class.generate_token(x["user_id"])
+                    token = user_class.generate_token1(x["user_id"], x["admin"])
 
                     # return {"message": "Logged in successfully"}
                     return {"message": "Logged in successfully", "token": token.decode("UTF-8")}
