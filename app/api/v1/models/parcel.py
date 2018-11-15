@@ -1,11 +1,8 @@
 from datetime import datetime
-from flask import request, current_app, jsonify, make_response
-import jwt
 
-#local imports
+# local imports
 from ..utils.pdto import api
-from ..utils.validators import validate_parcel_data, validate_update_parcel
-from instance import config
+from ..utils.validators import validate_parcel_data
 
 
 class Parcel(object):
@@ -17,53 +14,55 @@ class Parcel(object):
         self.no_of_parcels = []
 
     def create_parcel(self, data, user_id):
-    # def create_parcel(self, data):
+        # def create_parcel(self, data):
         """Method for creating a parcel delivery order"""
-
         data["parcel_id"] = int(len(self.no_of_parcels) + 1)
-        data["date_ordered"] = str(datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
+        data["date_ordered"] = str(
+            datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
         data["user_id"] = user_id
         data["cancel_order"] = False
         self.no_of_parcels.append(data)
         return data
-    
+
     def create_parcel_test(self, data):
         """Method for creating a parcel delivery order testing"""
-
         data["parcel_id"] = int(len(self.no_of_parcels) + 1)
-        data["date_ordered"] = str(datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
-        # data["user_id"] = user_ids
+        data["date_ordered"] = str(
+            datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
 
         self.no_of_parcels.append(data)
         return data
 
-
-    def get_one(self, parcel_id):
-    # def get_one(self, parcel_id, user_id):
+    def get_one(self, parcel_id, user_id):
         """Method for fetching one parcel by its id"""
-        parcel = [parcel for parcel in self.no_of_parcels if parcel["parcel_id"] == parcel_id]
+        parcel = [
+            parcel for parcel in self.no_of_parcels
+            if parcel["parcel_id"] == parcel_id]
 
         if not parcel:
-            api.abort(404, "Parcel delivery order {} does not exist".format(parcel_id))
+            api.abort(
+                404, "Parcel delivery order {} doesnt exist".format(parcel_id))
         return parcel
 
-    def delete_parcel(self, parcel_id):
+    def delete_parcel(self, parcel_id, user_id):
         "Method for deleting a parcel"
 
-        parcel = self.get_one(parcel_id)
+        parcel = self.get_one(parcel_id, user_id)
         self.no_of_parcels.remove(parcel[0])
 
-    def update_parcel(self, parcel_id, data):
+    def update_parcel(self, parcel_id, user_id, data):
         """Method for updating a parcel"""
 
-        parcel = self.get_one(parcel_id)
-        data['date_modified'] = str(datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
+        parcel = self.get_one(parcel_id, user_id)
+        data['date_modified'] = str(
+            datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
         parcel[0].update(data)
         return parcel
 
     def get_all_by_user(self, user_id):
         """Method for fetching one parcel by its id"""
-        parcel = [parcel for parcel in self.no_of_parcels if parcel['user_id'] == user_id]
+        parcel = [parcel for parcel in self.no_of_parcels
+                  if parcel['user_id'] == user_id]
 
         if not parcel:
             api.abort(404, "Parcel delivery order for the user does not exist")
