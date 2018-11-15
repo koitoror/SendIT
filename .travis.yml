@@ -18,6 +18,7 @@ script:
 
 branches:
   only:
+  - fb-ch2-161977372
   - ft-parcels-endpoints-161738123
   - develop
 
