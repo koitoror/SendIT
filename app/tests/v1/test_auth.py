@@ -1,25 +1,10 @@
 import unittest
-import json
 from .base import BaseTestCase
-from .helpers import register_user, login_user
+from .helpers import login_user
 
 
 class AuthTestCase(BaseTestCase):
     "Class for testing auth"
-
-
-    def test_user_cannot_register_twice(self):
-        with self.client:
-            # registering a user
-            res = register_user(self)
-            self.assertEqual(res.status_code, 201)
-
-        # test second registration
-        with self.client:
-            res = register_user(self)
-            self.assertEqual(res.status_code, 400)
-            self.assertIn(b'Email exists, please login or register with another email', res.data)
-
 
     def test_user_cannot_login_without_registration(self):
         with self.client:
@@ -29,8 +14,6 @@ class AuthTestCase(BaseTestCase):
             self.assertEqual(rv.status_code, 401)
             self.assertIn(b'No user found. Please sign up', rv.data)
 
-
-            
 
 if __name__ == '__main__':
     unittest.main()

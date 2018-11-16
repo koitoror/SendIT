@@ -15,9 +15,9 @@ class TestUserModel(BaseTestCase):
             "confirm": "johndoe123",
             "password": "password",
             "email": "kamar@gmail.com",
-            "username": "kamardaniel"   
+            "username": "kamardaniel"
         }
-        
+
         user_class.create_user(new_user)
         user = user_class.get_user_by_username("kamardaniel")
         for x in user:
