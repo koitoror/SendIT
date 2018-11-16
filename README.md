@@ -7,8 +7,6 @@
 # SendIT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories. .
 
-![Home Image](https://raw.github.com/Koitoror/Parcels/SendIT.jpg)
-
 ### Required Features
 1.	Users can create an account and log in. 
 2.	Users can create a parcel delivery order. 
