@@ -1,14 +1,13 @@
 import unittest
 
 from .base import BaseTestCase
-from app.api.v1.models.user import User as UserClass
+from app.api.v1.models.user import user_class
 
-users = UserClass()
 
 class TestUserModel(BaseTestCase):
 
     def test_generate_token(self):
-        token = users.generate_token(self.user.user_id)
+        token = user_class.generate_token(self.user_class.user_id)
         self.assertTrue(isinstance(token, bytes))
 
     def test_get_user_by_username(self):
@@ -19,8 +18,8 @@ class TestUserModel(BaseTestCase):
             "username": "kamardaniel"   
         }
         
-        users.create_user(new_user)
-        user = users.get_user_by_username("kamardaniel")
+        user_class.create_user(new_user)
+        user = user_class.get_user_by_username("kamardaniel")
         for x in user:
             self.assertIn('kamardaniel', x.values())
 

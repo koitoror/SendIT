@@ -1,7 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
-[![Build Status](https://travis-ci.com/koitoror/SendIT.svg?branch=develop)](https://travis-ci.com/koitoror/SendIT)
-[![Coverage Status](https://coveralls.io/repos/github/koitoror/SendIT/badge.svg?branch=develop)](https://coveralls.io/github/koitoror/SendIT?branch=develop)
+[![Build Status](https://travis-ci.com/koitoror/SendIT.svg?branch=ft-parcels-endpoints-161738123)](https://travis-ci.com/koitoror/SendIT)
+[![Coverage Status](https://coveralls.io/repos/github/koitoror/SendIT/badge.svg?branch=ft-parcels-endpoints-161738123)](https://coveralls.io/github/koitoror/SendIT?branch=ft-parcels-endpoints-161738123)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 # SendIT
@@ -135,13 +135,14 @@ POST  `/api/v1/auth/login` | Logs in a user
 ###  Endpoints
 **EndPoint** | **Functionality**
 --- | ---
-GET  `/api/v1/parcels` | Fetch all parcel delivery orders
-POST  `/api/v1/parcels` | Create a parcel delivery order
-GET  `/api/v1/parcels/<parcelId>` | Fetch a single parcel delivery order 
-DELETE  `/api/v1/parcels/<parcelId>` | Delete a parcel delivery order
+GET  `/api/v1/parcels` | Fetch all parcel delivery orders for all users by admin
+POST  `/api/v1/parcels` | Create a parcel delivery order by user
+GET  `/api/v1/parcels/<parcelId>` | Fetch a single parcel delivery order by user
+DELETE  `/api/v1/parcels/<parcelId>` | Delete a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>` | Update a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>/cancel` | Cancel a parcel delivery order by user
-GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders
+GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders by user
+
 
 
 # API Documentation

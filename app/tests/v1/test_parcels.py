@@ -7,8 +7,8 @@ class TestParcel(BaseTestCase):
     """Test Parcels Endpoints."""
 
     def create(self):
-        """Create parcel with required fields (parcel_name, price, present_location)."""
-        return self.client.post('/api/v1/parcels', data=json.dumps(self.data), content_type='application/json')
+        """Create parcel with required fields (parcel_name, price, present_location, destination_location)."""
+        return self.client.post('/api/v1/parcels', data=json.dumps(self.parcel), content_type='application/json')
 
     def create_no_parcel_name(self):
         """Create parcel with no parcel_name."""
@@ -20,7 +20,7 @@ class TestParcel(BaseTestCase):
 
     def create_no_json_data(self):
         """Create no json data"""
-        return self.client.post('/api/v1/parcels', data=json.dumps(self.data))
+        return self.client.post('/api/v1/parcels', data=json.dumps(self.parcel))
 
     def test_create_parcel(self):
         """Test create parcel endpoint
@@ -61,7 +61,7 @@ class TestParcel(BaseTestCase):
             return self.client.post(headers=headers)
 
             self.assertEqual(res.status_code, 201)
-            result = self.client.get('/api/v1/parcels/{}'.format(res.get_json()['id']))
+            result = self.client.get('/api/v1/parcels/{}'.format(res.get_json()['parcel_id']))
             self.assertEqual(result.status_code, 200)
             self.assertIn(b"test",result.data )
 
@@ -73,10 +73,10 @@ class TestParcel(BaseTestCase):
 
             access_token = 'mytoken'
             headers = {'Authorizations': 'Bearer {}'.format(access_token)}       
-            return self.client.post('/api/v1/parcels/', data=json.dumps(self.data), content_type='application/json', headers=headers)
+            return self.client.post('/api/v1/parcels/', data=json.dumps(self.parcel), content_type='application/json', headers=headers)
 
             self.assertEqual(res.status_code, 201)
-            result = self.client.delete('/api/v1/parcels/{}'.format(res.get_json()['id']))
+            result = self.client.delete('/api/v1/parcels/{}'.format(res.get_json()['parcel_id']))
 
             self.assertEqual(result.status_code, 204)
             self.assertNotIn(b'test', result.data)
@@ -95,7 +95,7 @@ class TestParcel(BaseTestCase):
             
             self.assertEqual(res.status_code, 201)
             result = self.client.put(
-                '/api/v1/parcels/{}'.format(res.get_json()['id']),
+                '/api/v1/parcels/{}'.format(res.get_json()['parcel_id']),
                 data=json.dumps({"parcel_name":"soccer-balls", "price":1000, "present_location":20}),
                 content_type='application/json'
             )

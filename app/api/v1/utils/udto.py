@@ -5,10 +5,11 @@ api = Namespace("auth", description="authentication related operations")
 
 user = api.model(
     'user', {
-    "id": fields.Integer(),
+    "user_id": fields.Integer(),
     "date_registered": fields.String(),
     "date_promoted": fields.String(),
-    'usertype': fields.String(required=True, description='usertype', example='user'),
+    "admin": fields.Boolean(required=True, description='user-level', example='False'),
+    # 'usertype': fields.String(required=True, description='usertype', example='user'),
     'email': fields.String(required=True, description='email address', example='johndoe@gmail.com'),
     'username': fields.String(required=True, description='username', example='johndoe'),
     'password': fields.String(required=True, description='password', example='johndoe123'),

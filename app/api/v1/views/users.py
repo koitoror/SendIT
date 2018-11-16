@@ -4,12 +4,10 @@ from flask_bcrypt import Bcrypt
 import jwt
 
 # local imports
-from ..models.user import User as UserClass
+from ..models.user import user_class
 from ..utils.udto import api, register_parser, login_model, login_parser, register_model
 from ..utils.validators import validate_user_data
 
-
-users = UserClass()
 
 @api.route("/signup")
 class UserRegister(Resource):
@@ -27,15 +25,19 @@ class UserRegister(Resource):
         if invalid_data:
             return invalid_data
         # check if email exists
-        user = users.get_user_by_email(new_user['email'])
+        user = user_class.get_user_by_email(new_user['email'])
+        # print(user_class.no_of_users)
         if user:
             return {'message': 'Username or Email exists, please login or register with another email'}, 400
         # check if username exists
-        user = users.get_user_by_username(new_user["username"])
+        user = user_class.get_user_by_username(new_user["username"])
         if not user:
             # hash_password = Bcrypt().generate_password_hash(new_user["password"]).decode()
-            # users.create_user(new_user["username"], new_user["email"], hash_password)
-            users.create_user(new_user)
+            # user_class.create_user(new_user["username"], new_user["email"], hash_password)
+            user_class.create_user(new_user)
+            # print(new_user)
+            # import pdb;pdb.set_trace()
+            # print(user_class.no_of_users)
             return {"message": "User registered successfully"}, 201
         return {"message": "User already exists. Please login."}, 202
 
@@ -52,7 +54,7 @@ class LoginUser(Resource):
         args = login_parser.parse_args()
 
         if args["username"] and args["password"]:
-            user = users.get_user_by_username(args["username"])
+            user = user_class.get_user_by_username(args["username"])
 
             if user:
                 
@@ -61,7 +63,7 @@ class LoginUser(Resource):
                     # if not Bcrypt().check_password_hash(x["password"], args["password"]):
                     #     return {"warning": "Invalid password"},400
 
-                    token = users.generate_token(x["id"])
+                    token = user_class.generate_token1(x["user_id"], x["admin"])
 
                     # return {"message": "Logged in successfully"}
                     return {"message": "Logged in successfully", "token": token.decode("UTF-8")}
