@@ -6,11 +6,6 @@ install:
   - "pip install -r requirements.txt"
   - "pip install coveralls"
 
-# before_script:
-#   - psql -c 'create database store_manager;' -U postgres
-#   - psql -c "create user kamar with password 'pass@word1' createdb;" -U postgres
-#   - python app/database.py
-
 
 # command to run tests
 script:
