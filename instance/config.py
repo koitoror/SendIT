@@ -12,14 +12,14 @@ class Config(object):
 class DevelopmentConfig(Config):
     """Configurations for Development."""
     DEBUG = True
-    # MODE="development"
+    MODE = "development"
 
 
 class TestingConfig(Config):
     """Configurations for Testing, with a separate test database."""
     TESTING = True
     DEBUG = True
-    # MODE="testing"
+    MODE = "testing"
 
 
 class ProductionConfig(Config):

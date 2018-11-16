@@ -1,12 +1,16 @@
 language: python
 python:
   - "3.5"
+
 # command to install dependencies
 install:
   - "pip install -r requirements.txt"
   - "pip install coveralls"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 13a173ec8b4b61104f68e2edd2444d1d74373b6c
 # command to run tests
 script:
   - pytest --cov app
