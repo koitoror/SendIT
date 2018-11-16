@@ -39,3 +39,33 @@ class UserRegister(Resource):
             return {"message": "User registered successfully"}, 201
         return {"message": "User already exists. Please login."}, 202
 
+@api.route("/login")
+class LoginUser(Resource):
+    "Class for logging in a user"
+
+    @api.expect(login_model)
+    @api.doc("user login")
+    @api.response(400, "Bad Request")
+    @api.response(401, "Unauthorized")
+    def post(self):
+        "Handles logging the user."
+        args = login_parser.parse_args()
+
+        if args["username"] and args["password"]:
+            user = users.get_user_by_username(args["username"])
+
+            if user:
+                
+                for x in user:
+                    # print(x)
+                    # if not Bcrypt().check_password_hash(x["password"], args["password"]):
+                    #     return {"warning": "Invalid password"},400
+
+                    token = users.generate_token(x["id"])
+
+                    # return {"message": "Logged in successfully"}
+                    return {"message": "Logged in successfully", "token": token.decode("UTF-8")}
+                    # return {"message": "Logged in successfully", "token": token}
+
+            return {"warning": "No user found. Please sign up"},401
+        return {"warning": "'username' and 'password' are required fields"}, 400
