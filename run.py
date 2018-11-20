@@ -17,7 +17,7 @@ app = create_app(config_name=os.getenv("FLASK_CONFIG"))
 
 
 # registering the blueprint
-app.register_blueprint(v1)
+# app.register_blueprint(v1)
 app.register_blueprint(v2)
 
 # initializing the manager object

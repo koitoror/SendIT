@@ -19,7 +19,7 @@ authorizations = {
 
 
 api = Api(
-    api_v1, title='SendIT API :: v1', doc='/', version='1.0',
+    api_v1, title='SendIT API :: v1', doc='/v1', version='1.0',
     authorizations=authorizations,
     description='SendIT is a courier service that helps to deliver parcels.',)
 

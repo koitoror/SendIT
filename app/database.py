@@ -43,7 +43,7 @@ class Database(object):
                 username VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 password VARCHAR(255) NOT NULL,
-                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 
             )
             """,
