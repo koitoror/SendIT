@@ -65,10 +65,53 @@ class Database(object):
     #     except Exception as e:
     #         return {"message": str(e)}
 
+    def create_tables(self):
+        tables=(
+            """
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+            )
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS parcels (
+                parcel_id SERIAL PRIMARY KEY,
+                user_id INTEGER NOT NULL,
+                parcel_name VARCHAR(255) NOT NULL,
+                date_ordered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                price INTEGER NOT NULL,
+                pickup_location text,
+                present_location text, 
+                destination_location text,
+                status text,
+                cancel_order BOOLEAN NOT NULL DEFAULT False,
+                FOREIGN KEY (user_id)
+                    REFERENCES users (id)
+                    ON UPDATE CASCADE ON DELETE CASCADE
+            )
+            """
+        )
+        for table in tables:
+            self.cursor.execute(table)
+   
+    def drop_all(self):
+        tables=(
+            """
+            DROP TABLE IF EXISTS users CASCADE
+            """,
+            """
+            DROP TABLE IF EXISTS parcels CASCADE
+            """
+        )
+        for table in tables:
+            self.cursor.execute(table)
 
 
 if __name__=="__main__":
     db = Database()
     # db.connect_db()
-    # db.create_tables()
+    db.create_tables()
     # db.drop_all()
