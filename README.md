@@ -94,11 +94,28 @@ Set environment variables for
 
 > `FLASK_CONFIG` is the enviroment you are running on. Should be either `Production`, `Development` or `Testing`. NOTE: its case sensitive
 
+> `ROLE` is the postgresql user
+
+> `PASSWORD` is the postgresql password for the user created
+
 > `PORT` the default port for postgresql service which 5432
 
 > `HOST` which is localhost
 
+> `DATABASE` the name of the app database
 
+
+## API Usage
+
+To get the app running...
+
+```bash
+$ psql -c 'create database <database-name>;' -U postgres
+```
+
+```bash
+$ psql -c "create user <your-user-name> with password <your-password> createdb;" -U postgres
+```
 
 ## API Usage
 
@@ -129,6 +146,9 @@ To test endpoints manually fire up postman and run the following endpoints
 POST  `/api/v1/auth/signup` | Register a user
 POST  `/api/v1/auth/login` | Logs in a user
 
+POST  `/api/v2/auth/signup` | Register a user
+POST  `/api/v2/auth/login` | Logs in a user
+
 
 ###  Endpoints
 **EndPoint** | **Functionality**
@@ -141,6 +161,15 @@ PUT  `/api/v1/parcels/<parcelId>` | Update a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>/cancel` | Cancel a parcel delivery order by user
 GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders by user
 
+GET  `/api/v2/parcels` | Fetch all parcel delivery orders for all users by admin
+POST  `/api/v2/parcels` | Create a parcel delivery order by user
+GET  `/api/v2/parcels/<parcelId>` | Fetch a single parcel delivery order by user
+DELETE  `/api/v2/parcels/<parcelId>` | Delete a parcel delivery order by admin
+PUT  `/api/v2/parcels/<parcelId>/cancel` | Cancel a parcel delivery order by user
+PUT  `/api/v2/parcels/<parcelId>/destination` | Change the destination of a parcel delivery order by user
+PUT  `/api/v2/parcels/<parcelId>/presentLocation` | Change the present location of a parcel delivery order by admin
+PUT  `/api/v2/parcels/<parcelId>/status` | Change the status of a parcel delivery order by admin
+GET  `/api/v2/users/<userId>/parcels` | Fetch all parcel delivery orders by user
 
 
 # API Documentation
@@ -150,3 +179,6 @@ http://127.0.0.1:5000/
 ```
 
 Once app server is running you can view * VERSION 1 * on HEROKU the [API documentation here](https://send-it-ke.herokuapp.com)
+
+
+Once app server is running you can view * VERSION 2 * on HEROKU the [API documentation here](https://send-it-ke-v2.herokuapp.com)
