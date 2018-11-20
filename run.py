@@ -13,7 +13,6 @@ from app.api.v1 import api_v1 as v1
 from app.api.v2 import api_v2 as v2
 
 # application development instance
-# app = create_app(config_name=os.getenv("FLASK_CONFIG"))
 app = create_app(config_name=os.getenv("FLASK_CONFIG"))
 
 
