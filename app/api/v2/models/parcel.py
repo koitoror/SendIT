@@ -43,5 +43,13 @@ class Parcel(object):
         query = "UPDATE parcels SET cancel_order=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (cancel_order, parcel_id))
 
+    @staticmethod   
+    def modify_parcel_user_destination(dict_cursor, cursor, destination_location, parcel_id, user_id):
+        data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        if data["user_id"] != str(user_id):
+            api.abort(401, "Unauthorized")
+        query = "UPDATE parcels SET destination_location=%s WHERE (parcel_id=%s)"
+        cursor.execute(query, (destination_location, parcel_id))
+  
 
      
