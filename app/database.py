@@ -4,10 +4,7 @@ import os
 import psycopg2
 import psycopg2.extras
 import urllib.parse as urlparse
-# from instance import create_app
 
-
-# app = create_app(config_name=os.getenv("FLASK_CONFIG"))
 
 class Database(object):
     """Class for creating the database
