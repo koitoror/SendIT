@@ -66,6 +66,14 @@ class Parcel(object):
             api.abort(401, "Unauthorized")
         query = "UPDATE parcels SET status=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (status, parcel_id))
+        
+    @staticmethod   
+    def delete_parcel(dict_cursor, cursor, parcel_id, user_id):
+        data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        if data["user_id"] != str(user_id):
+            api.abort(401, "Unauthorized")
+        query = "DELETE FROM parcels WHERE parcel_id=%s"
+        dict_cursor.execute(query, [parcel_id])
      
 
      
