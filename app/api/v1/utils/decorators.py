@@ -4,7 +4,6 @@ to restrict access to administrators only.
 """
 
 from functools import wraps
-
 from flask import request, current_app, jsonify, make_response
 import jwt
 
