@@ -7,12 +7,18 @@ install:
   - "pip install -r requirements.txt"
   - "pip install coveralls"
 
+before_script:
+  - psql -c 'create database send_it;' -U postgres
+  - psql -c "create user kamar with password 'pass@word1' createdb;" -U postgres
+  - python app/database.py
+
 # command to run tests
 script:
   - pytest --cov app
 
 branches:
   only:
+  - ch-setup-tests-162042746
   - fb-ch2-161977372
   - ft-parcels-endpoints-161738123
   - develop
