@@ -33,7 +33,7 @@ def run():
 
 @manager.command
 def test():
-    test = unittest.TestLoader().discover("./app/tests/v1", pattern="test*.py")
+    test = unittest.TestLoader().discover("./app/tests", pattern="test*.py")
     unittest.TextTestRunner(verbosity=2).run(test)
 
 
