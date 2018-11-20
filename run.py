@@ -8,7 +8,7 @@ import unittest
 from flask_script import Manager # controller class for handling commands
 
 # local imports
-from instance import create_app
+from app import create_app
 from app.api.v1 import api_v1 as v1
 from app.api.v2 import api_v2 as v2
 
