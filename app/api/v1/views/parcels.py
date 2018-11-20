@@ -4,9 +4,9 @@ from flask_restplus import Resource
 
 # local imports
 from ..models.parcel import parcel_class
-from ..utils.pdto import api, parcel, post_parcels, update_parcels_admin
-from ..utils.pdto import parcel_parser, update_parcel_parser_as_admin
-from ..utils.pdto import update_parcel_parser_as_user, update_parcels_user
+from ..utils.pdto import api, parcel, post_parcel, parcel_parser
+from ..utils.pdto import update_parcels_admin, update_parcel_parser_admin
+from ..utils.pdto import update_parcels_user, update_parcel_parser_user
 from ..utils.decorators import user_required, admin_required
 from ..utils.validators import validate_parcel_data, validate_update_parcel
 from ..utils.validators import validate_update_parcel_admin
@@ -16,13 +16,16 @@ from ..utils.validators import validate_update_parcel_admin
 class ParcelList(Resource):
     """Displays a list of all parcels and lets you POST new parcel delivery."""
 
-    @api.expect(post_parcels)
+    @api.expect(post_parcel)
     @api.doc('creates a parcel delivery order', security='apikey')
     @api.response(201, "Created")
     @user_required
+    @api.header('x-access-token', type=str, description='access token')
     def post(user_id, self):
         """Creates a new Parcel delivery order."""
         args = parcel_parser.parse_args()
+
+        # validate the parcel payload
         invalid_data = validate_parcel_data(args)
         if invalid_data:
             return invalid_data
@@ -52,12 +55,12 @@ class Parcel(Resource):
         return parcel_class.get_one(parcel_id, user_id)
 
     @api.marshal_with(parcel)
-    @api.doc('updates a parcel delivery order for admin', security='apikey')
+    @api.doc('updates a parcel delivery order by admin', security='apikey')
     @api.expect(update_parcels_admin)
     @user_required
     def put(self, user_id, parcel_id):
         """Updates a single Parcel delivery order by admin."""
-        args = update_parcel_parser_as_admin.parse_args()
+        args = update_parcel_parser_admin.parse_args()
         invalid_data = validate_update_parcel_admin(parcel, args)
         if invalid_data:
             return invalid_data
@@ -76,8 +79,8 @@ class Parcel(Resource):
 @api.route("/users/<int:user_id>/parcels")
 @api.param("user_id", "parcel identifier")
 @api.response(404, 'Parcel not found')
-class User(Resource):
-    """Displays a single parcel item and lets you delete them."""
+class UserParcels(Resource):
+    """Displays all parcel delivery orders by a specific/single user."""
 
     @api.doc("list_all_parcel_delivery_orders_by_user", security='apikey')
     @api.response(404, "Parcel delivery orders Not Found")
@@ -90,7 +93,7 @@ class User(Resource):
 @api.route("/parcels/<int:parcel_id>/cancel")
 @api.param("parcel_id", "parcel identifier")
 @api.response(404, 'Parcel not found')
-class UserParcel(Resource):
+class UserCancel(Resource):
     """Displays a single parcel deliver order and lets you cancel order."""
 
     @api.marshal_with(parcel)
@@ -99,7 +102,7 @@ class UserParcel(Resource):
     @user_required
     def put(self, user_id, parcel_id):
         """Cancels a single Parcel delivery order by user."""
-        args = update_parcel_parser_as_user.parse_args()
+        args = update_parcel_parser_user.parse_args()
         invalid_data = validate_update_parcel(parcel, args)
         if invalid_data:
             return invalid_data
