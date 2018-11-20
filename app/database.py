@@ -37,33 +37,6 @@ class Database(object):
             port="5432",
         )
 
-    #     return psycopg2.connect(
-    #         database=database,
-    #         user=role,
-    #         host=host,
-    #         password=pwd,
-        # )
-
-
-    # def connect_db(self):
-    #     """Method for creating db connection."""
-    #     try:
-    #         self.connection = psycopg2.connect(database="store_manager", user="postgres", password="123456", host="localhost", port="5432")
-    #         self.connection.autocommit = True
-    #         self.cursor = self.connection.cursor()
-    #         self.dict_cursor = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    #     except Exception as e:
-    #         return {"message": str(e)}
-
-    # def connect_db(self, testing=None):
-    #     """Method for creating db connection."""
-    #     try:
-    #         self.connection = psycopg2.connect(database="d4501hveeam6gl", user="hpwkkcsgckkgvk", password="2e5282386e7f2a3e1faef5558102a71b67019dc02844d1b16a5374b8e354be7a", host="ec2-107-22-189-136.compute-1.amazonaws.com", port="5432")
-    #         self.connection.autocommit = True
-    #         self.cursor = self.connection.cursor()
-    #         self.dict_cursor = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    #     except Exception as e:
-    #         return {"message": str(e)}
 
     def create_tables(self):
         tables=(
@@ -73,7 +46,8 @@ class Database(object):
                 username VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 password VARCHAR(255) NOT NULL,
-                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+
             )
             """,
             """
