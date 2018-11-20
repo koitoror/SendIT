@@ -65,5 +65,3 @@ update_user_parser.add_argument(
     'password', required=True, help='password should be a string')
 update_user_parser.add_argument(
     'confirm', required=True, help='password should be a string')
-update_user_parser.add_argument(
-    'usertype', required=True, help='password should be a string')
