@@ -25,4 +25,14 @@ class Parcel(object):
             api.abort(404, "Parcel {} not found".format(parcel_id))
         parcel = {key:str(value) for key, value in data.items() if value is not str}
         return parcel
+
+    @staticmethod   
+    def modify_parcel(dict_cursor, cursor, parcel_name, status, parcel_id, user_id):
+        data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        if data["user_id"] != str(user_id):
+            api.abort(401, "Unauthorized")
+        query = "UPDATE parcels SET parcel_name=%s, status=%s WHERE (parcel_id=%s)"
+        cursor.execute(query, (parcel_name, status, parcel_id))
+
+
      
