@@ -58,6 +58,14 @@ class Parcel(object):
             api.abort(401, "Unauthorized")
         query = "UPDATE parcels SET present_location=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (present_location, parcel_id))
-  
+
+    @staticmethod   
+    def modify_parcel_admin_status(dict_cursor, cursor, status, parcel_id, user_id):
+        data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        if data["user_id"] != str(user_id):
+            api.abort(401, "Unauthorized")
+        query = "UPDATE parcels SET status=%s WHERE (parcel_id=%s)"
+        cursor.execute(query, (status, parcel_id))
+     
 
      
