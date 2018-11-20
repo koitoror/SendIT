@@ -75,5 +75,25 @@ class Parcel(object):
         query = "DELETE FROM parcels WHERE parcel_id=%s"
         dict_cursor.execute(query, [parcel_id])
      
+    @staticmethod   
+    def get_all(dict_cursor, user_id):
+        query_string="SELECT * FROM parcels WHERE user_id = %s"
+        dict_cursor.execute(query_string, [user_id])
+        parcels = dict_cursor.fetchall()
+        results = []
+        for parcel in parcels:
+            obj = {
+                "parcel_id":parcel["parcel_id"],
+                "parcel_name":parcel["parcel_name"],
+                "pickup_location":parcel["pickup_location"],
+                "destination_location":parcel["destination_location"],
+                "price":parcel["price"],
+                "status":parcel["status"],
+                "user_id":parcel["user_id"],
+                "date_ordered":parcel["date_ordered"].strftime('%d-%b-%Y : %H:%M:%S'),
+            }
+            results.append(obj)
+        return results
 
+    
      
