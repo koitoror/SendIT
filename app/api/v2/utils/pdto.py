@@ -94,3 +94,50 @@ update_parcels_user_destination = api.model(
 
     })
 
+parcel_parser = reqparse.RequestParser()
+parcel_parser.add_argument(
+    'parcel_name', required=True, type=str, help='name should be a string')
+parcel_parser.add_argument('price', required=True,
+                           type=int,
+                           help='price should be a integer')
+parcel_parser.add_argument(
+    'pickup_location', required=True,
+                           type=str,
+                           help='pickup_location should be a string')
+parcel_parser.add_argument(
+    'destination_location', required=True,
+                           type=str,
+                           help='destination_location should be a string')
+parcel_parser.add_argument(
+    'status', required=False,
+                           type=str,
+                           help='status should be a string')
+
+update_parcel_parsers_admin = reqparse.RequestParser()
+update_parcel_parsers_admin.add_argument(
+    'present_location', type=str,
+                        help='present_location should be a string')
+update_parcel_parsers_admin.add_argument(
+    'status', type=str, help='status should be a string')
+
+update_parcel_parsers_admin_pl = reqparse.RequestParser()
+update_parcel_parsers_admin_pl.add_argument(
+    'present_location', type=str,
+                        help='present_location should be a string')
+
+update_parcel_parsers_admin_status = reqparse.RequestParser()
+update_parcel_parsers_admin_status.add_argument(
+    'status', type=str, help='status should be a string')
+
+update_parcel_parser_user_destination = reqparse.RequestParser()
+update_parcel_parser_user_destination.add_argument(
+    'destination_location', type=str,
+                            help='destination_location should be a string')
+
+update_parcel_parser_user_cancel = reqparse.RequestParser()
+update_parcel_parser_user_cancel.add_argument(
+    'cancel_order', type=bool, help='status should be a boolean')
+
+update_parcel_parser = reqparse.RequestParser()
+update_parcel_parser.add_argument('parcel_name', required=True, type=str, help='parcel_name should be a string')
+update_parcel_parser.add_argument('status', required=True, type=str, help='status should be a string')
