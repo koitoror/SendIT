@@ -160,3 +160,23 @@ def validate_update_parcel_user_destination(parcel, data):
     # Check for large/long inputs
     if len(data['destination_location']) > 40:
         return {'warning': 'destination_location is too long'}, 400
+
+def validate_update_parcel_admin_pl(parcel, data):
+    """ this funtion validates the updated parcel data """
+
+    # Check for empty present_location
+    if data['present_location'] == '':
+        data['present_location'] = parcel['present_location']
+    
+    # check for valid present_location
+    if data['present_location'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit destination_location'}, 400
+
+    if not data["present_location"].strip():
+        return {"warning": "Enter valid present_location"}, 400
+
+    # Check for large/long inputs
+    if len(data['present_location']) > 40:
+        return {'warning': 'present_location is too long'}, 400
+
+
