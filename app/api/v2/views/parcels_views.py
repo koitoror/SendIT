@@ -150,4 +150,32 @@ class UserCancel(Resource):
         # return parcel_class.update_parcel(parcel_id, user_id, args)
         Parcel.modify_parcel_user_cancel(dict_cursor, cursor, args["cancel_order"], parcel_id, user_id)
         return {"message": "Canceled successfully", "parcel":parcel}
+         
+@api.route("/parcels/<int:parcel_id>/destination")
+@api.param("parcel_id", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class UserDestination(Resource):
+    """Displays a single parcel deliver order and lets you cancel order."""
+
+    @api.marshal_with(parcel)
+    @api.doc('updates destination of a parcel delivery order', security='apikey')
+    @api.expect(update_parcel_parser_user_destination)
+    @user_required
+    @api.header('x-access-token', type=str, description='access token')
+    def put(user_id, self, parcel_id):
+        """Changes the destination of a single Parcel delivery order by user."""
+
+        args = update_parcel_parser_user_destination.parse_args()
+        destination_location = args["destination_location"]
+        parcel = {"destination_location": destination_location}
+        parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         
+        invalid_data = validate_update_parcel_user_destination(parcel, args)
+        
+        if invalid_data:
+            return invalid_data
+
+        # return parcel_class.update_parcel(parcel_id, user_id, args)
+        Parcel.modify_parcel_user_destination(dict_cursor, cursor, args["destination_location"], parcel_id, user_id)
+        return {"message": "Destination updated successfully", "parcel":parcel}
+       
