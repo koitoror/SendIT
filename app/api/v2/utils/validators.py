@@ -180,3 +180,20 @@ def validate_update_parcel_admin_pl(parcel, data):
         return {'warning': 'present_location is too long'}, 400
 
 
+def validate_update_parcel_admin_status(parcel, data):
+    """ this funtion validates the updated parcel data """
+
+    # Check for empty status
+    if data['status'] == '':
+        data['status'] = parcel['status']
+    
+    # check for valid status
+    if data['status'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit status'}, 400
+
+    if not data["status"].strip():
+        return {"warning": "Enter valid status"}, 400
+
+    # Check for large/long inputs
+    if len(data['status']) > 40:
+        return {'warning': 'status is too long'}, 400
