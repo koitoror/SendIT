@@ -141,3 +141,22 @@ def validate_update_parcel_user_cancel(parcel, data):
     # # Check for empty cancel_order
     # if data['cancel_order'] == '':
     #     data['cancel_order'] = parcel['cancel_order']
+
+
+def validate_update_parcel_user_destination(parcel, data):
+    """ this funtion validates the updated parcel data """
+
+    # Check for empty destination_location
+    if data['destination_location'] == '':
+        data['destination_location'] = parcel['destination_location']
+    
+    # check for valid destination_location
+    if data['destination_location'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit destination_location'}, 400
+
+    if not data["destination_location"].strip():
+        return {"warning": "Enter valid destination_location"}, 400
+
+    # Check for large/long inputs
+    if len(data['destination_location']) > 40:
+        return {'warning': 'destination_location is too long'}, 400
