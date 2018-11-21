@@ -18,6 +18,7 @@ script:
 
 branches:
   only:
+  - ft-parcel-orders-endpoints-162030527
   - ch-setup-tests-162042746
   - fb-ch2-161977372
   - ft-parcels-endpoints-161738123
