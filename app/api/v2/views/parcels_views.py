@@ -41,3 +41,16 @@ class ParcelList(Resource):
         price = args["price"]
         Parcel.create_parcel(cursor, parcel_name, price, pickup_location, destination_location, status, user_id)
         return {"message": "Parcel added successfully"}, 201
+
+    @api.doc("list_parcels")
+    @api.response(404, "Parcels Not Found")
+    @api.marshal_list_with(parcel, envelope="parcels")
+    @api.doc(security='apikey')
+    @api.header('x-access-token', type=str, description='access token')
+    @user_required
+    def get(user_id, self):
+        """List all Parcels"""
+        parcels = Parcel.get_all(dict_cursor, user_id)
+        if not parcels:
+            api.abort(404, "No parcels for user {}".format(user_id))
+        return parcels
