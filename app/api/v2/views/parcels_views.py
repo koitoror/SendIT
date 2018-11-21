@@ -122,3 +122,32 @@ class UserParcels(Resource):
         if not parcels:
             api.abort(404, "No parcels for user {}".format(user_id))
         return parcels
+
+@api.route("/parcels/<int:parcel_id>/cancel")
+@api.param("parcel_id", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class UserCancel(Resource):
+    """Displays a single parcel deliver order and lets you cancel order."""
+
+    @api.marshal_with(parcel)
+    @api.doc('updates/cancels a parcel delivery order', security='apikey')
+    @api.expect(update_parcel_parser_user_cancel)
+    @user_required
+    @api.header('x-access-token', type=str, description='access token')
+    def put(user_id, self, parcel_id):
+        """Cancels a single Parcel delivery order by user."""
+
+        args = update_parcel_parser_user_cancel.parse_args()
+        cancel_order = args["cancel_order"]
+        parcel = {"cancel_order":cancel_order}
+        parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        
+        # invalid_data = validate_update_parcel_user_cancel(parcel, args)
+        
+        # if invalid_data:
+        #     return invalid_data
+
+        # return parcel_class.update_parcel(parcel_id, user_id, args)
+        Parcel.modify_parcel_user_cancel(dict_cursor, cursor, args["cancel_order"], parcel_id, user_id)
+        return {"message": "Canceled successfully", "parcel":parcel}
+        
