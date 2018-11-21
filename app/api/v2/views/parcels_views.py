@@ -104,3 +104,21 @@ class ParcelClass(Resource):
 
         Parcel.delete_parcel(dict_cursor, cursor, parcel_id, user_id)
         return {"message": "Parcel deleted successully"}, 200
+
+@api.route("/users/<int:user_id>/parcels")
+@api.param("user_id", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class UserParcels(Resource):
+    """Displays a single parcel item and lets you delete them."""
+
+    @api.doc("list_all_parcel_delivery_orders_by_user", security='apikey')
+    @api.response(404, "Parcel delivery orders Not Found")
+    @api.marshal_list_with(parcel, envelope="parcels")
+    @api.header('x-access-token', type=str, description='access token')
+    @user_required
+    def get(user_id, self):
+        """Fetch/list all parcel delivery orders by a specific/single user"""
+        parcels = Parcel.get_all(dict_cursor, user_id)
+        if not parcels:
+            api.abort(404, "No parcels for user {}".format(user_id))
+        return parcels
