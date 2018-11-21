@@ -18,20 +18,20 @@ class Database(object):
         self.dict_cursor = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
     def connect(self, testing=None):
-        # db_uri = os.getenv("TEST_DB_URL") if testing else os.getenv("DATABASE_URL")
-        db_uri = os.getenv("DATABASE_URL")
-        result = urlparse.urlparse(db_uri)    
-        host = result.hostname
-        role = result.username
-        pwd = result.password
-        database = result.path[1:]
+        # # db_uri = os.getenv("TEST_DB_URL") if testing else os.getenv("DATABASE_URL")
+        # db_uri = os.getenv("DATABASE_URL")
+        # result = urlparse.urlparse(db_uri)    
+        # host = result.hostname
+        # role = result.username
+        # pwd = result.password
+        # database = result.path[1:]
 
         return psycopg2.connect(
-            database="deu75mlooshddr", 
-            user="gneferakfbnran", 
-            password="c08024e49203b31e0584237f938f0bc310ca010431c31cefcb0cade0e69e4e37", 
-            host="ec2-54-83-27-162.compute-1.amazonaws.com", 
-            port="5432",
+            database="dfdao6n5c3ldv0", 
+            user="lvyhayqrcwomlj", 
+            password="10030c356eb6d7f42f498a9b83cc66e050056e840e8164a0ff3ba99376612ae7", 
+            host="ec2-54-197-249-140.compute-1.amazonaws.com", 
+            port="5432"
         )
 
 
@@ -43,7 +43,8 @@ class Database(object):
                 username VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 password VARCHAR(255) NOT NULL,
-                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+                date_registered TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                admin BOOLEAN NOT NULL DEFAULT False
 
             )
             """,
