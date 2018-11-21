@@ -51,3 +51,56 @@ def validate_user_data(user):
 
     elif len(user['password']) < 6:
         return {'warning': 'password requires atlest 6 characters'}, 400
+
+
+def validate_parcel_data(parcel):
+    """ this funtion validates the parcel data """
+
+    # Check for empty parcel_name
+    if parcel['parcel_name'] == '':
+        return {'warning': 'parcel_name is a required field'}, 400
+
+        # Check for empty pickup_location
+    elif parcel['pickup_location'] == ' ':
+        return {'warning': 'pickup_location is a required field'}, 400
+
+    # Check for empty destination_location
+    elif parcel['destination_location'] == ' ':
+        return {'warning': 'destination_location is a required field'}, 400
+
+    # Check for empty status
+    elif parcel['status'] == '':
+        return {'warning': 'status is a required field'}, 400
+    
+    # check for a valid parcel_name
+    if parcel['parcel_name'].strip(' ').isdigit():
+        return {'warning': 'Enter a non digit parcel_name'}, 400
+
+    if not parcel["parcel_name"].strip():
+        return {"warning": "Enter a valid parcel_name"}, 400
+    
+    # check for valid pickup_location
+    if parcel['pickup_location'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit pickup_location'}, 400
+
+    if not parcel["pickup_location"].strip():
+        return {"warning": "Enter valid pickup_location"}, 400
+
+    # check for valid destination_location
+    if parcel['destination_location'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit destination_location'}, 400
+
+    if not parcel["destination_location"].strip():
+        return {"warning": "Enter valid destination_location"}, 400
+
+    # check for valid status
+    if parcel['status'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit status'}, 400
+
+    if not parcel["status"].strip():
+        return {"warning": "Enter valid status"}, 400
+
+    # Check for large/long inputs
+    if len(parcel['parcel_name']) > 40:
+        return {'warning': 'parcel_name is too long'}, 400
+
