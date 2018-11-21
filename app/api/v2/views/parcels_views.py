@@ -72,3 +72,35 @@ class ParcelClass(Resource):
         if parcel["user_id"] != str(user_id):
             api.abort(401, "Unauthorized to view this parcel")
         return parcel
+
+    @api.doc('updates a parcel')
+    @api.expect(post_parcel)
+    @user_required
+    @api.doc(security='apikey')
+    @api.header('x-access-token', type=str, description='access token')
+    def put(user_id, self, parcel_id):
+        """Updates a single Parcel."""
+        args = update_parcel_parser.parse_args()
+        parcel_name = args["parcel_name"]
+        status = args["status"]
+        parcel = {"parcel_name": parcel_name, "status":status}
+        parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+
+        invalid_data = validate_update_parcel(parcel, args)
+
+        if invalid_data:
+            return invalid_data
+        
+        Parcel.modify_parcel(dict_cursor, cursor, args["parcel_name"], args["status"], parcel_id, user_id)
+        return {"message": "Updated successfully", "parcel":parcel}
+
+    @api.doc('deletes a parcel')
+    @api.response(204, 'Parcel Deleted')
+    @user_required
+    @api.doc(security='apikey')
+    @api.header('x-access-token', type=str, description='access token')
+    def delete(user_id, self, parcel_id):
+        """Deletes a single Parcel."""
+
+        Parcel.delete_parcel(dict_cursor, cursor, parcel_id, user_id)
+        return {"message": "Parcel deleted successully"}, 200
