@@ -205,3 +205,31 @@ class AdminPresentLocation(Resource):
 
         Parcel.modify_parcel_admin_pl(dict_cursor, cursor, args["present_location"], parcel_id, user_id)
         return {"message": "Destination updated successfully", "parcel":parcel}
+
+@api.route("/parcels/<int:parcel_id>/status")
+@api.param("parcel_id", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class AdminStatus(Resource):
+    """Displays a single parcel deliver order and lets you/admin to change the status."""
+
+    @api.marshal_with(parcel)
+    @api.doc('updates status of a parcel delivery order', security='apikey')
+    @api.expect(update_parcel_parsers_admin_status)
+    @user_required
+    @api.header('x-access-token', type=str, description='access token')
+    def put(user_id, self, parcel_id):
+        """Changes the status of a single Parcel delivery order by admin."""
+
+        args = update_parcel_parsers_admin_status.parse_args()
+        status = args["status"]
+        parcel = {"status": status}
+        parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        
+        invalid_data = validate_update_parcel_admin_status(parcel, args)
+        
+        if invalid_data:
+            return invalid_data
+
+        Parcel.modify_parcel_admin_status(dict_cursor, cursor, args["status"], parcel_id, user_id)
+        return {"message": "Destination updated successfully", "parcel":parcel}
+        
