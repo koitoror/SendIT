@@ -104,3 +104,40 @@ def validate_parcel_data(parcel):
     if len(parcel['parcel_name']) > 40:
         return {'warning': 'parcel_name is too long'}, 400
 
+
+def validate_update_parcel(parcel, data):
+    """ this funtion validates the updated parcel data """
+
+    # Check for empty parcel_name
+    if data['parcel_name'] == '':
+        data['parcel_name'] = parcel['parcel_name']
+
+    # Check for empty status
+    if data['status'] == '':
+        data['status'] = parcel['status']
+    
+    # check for a valid parcel_name
+    if data['parcel_name'].strip(' ').isdigit():
+        return {'warning': 'Enter a non digit parcel_name'}, 400
+
+    if not data["parcel_name"].strip():
+        return {"warning": "Enter a valid parcel_name"}, 400
+    
+    # check for valid status
+    if data['status'].strip(' ').isdigit():
+        return {'warning': 'Enter non digit status'}, 400
+
+    if not data["status"].strip():
+        return {"warning": "Enter valid status"}, 400
+
+    # Check for large/long inputs
+    if len(data['parcel_name']) > 40:
+        return {'warning': 'parcel_name is too long'}, 400
+
+
+def validate_update_parcel_user_cancel(parcel, data):
+    """ this funtion validates the updated parcel data """
+
+    # # Check for empty cancel_order
+    # if data['cancel_order'] == '':
+    #     data['cancel_order'] = parcel['cancel_order']
