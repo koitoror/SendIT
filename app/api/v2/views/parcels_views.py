@@ -54,3 +54,21 @@ class ParcelList(Resource):
         if not parcels:
             api.abort(404, "No parcels for user {}".format(user_id))
         return parcels
+
+@api.route("/parcels/<int:parcel_id>")
+@api.param("parcel_id", "parcel identifier")
+@api.response(404, 'Parcel not found')
+class ParcelClass(Resource):
+    """Displays a single parcel item and lets you delete them."""
+
+    @api.marshal_with(parcel)
+    @api.doc('get one parcel')
+    @user_required
+    @api.doc(security='apikey')
+    @api.header('x-access-token', type=str, description='access token')
+    def get(user_id, self, parcel_id):
+        """Displays a single Parcel."""
+        parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        if parcel["user_id"] != str(user_id):
+            api.abort(401, "Unauthorized to view this parcel")
+        return parcel
