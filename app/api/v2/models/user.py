@@ -51,13 +51,13 @@ class User():
         user = dict_cursor.fetchone()
         return user
 
-    # @staticmethod
-    # def logout_user(dict_cursor, cursor, self, token):
-    #     """logs out a user by adding their token to the blacklist table"""
-    #     query_string = "INSERT INTO blacklist VALUES (%(tokens)s) RETURNING tokens"
-    #     bad_token = dict(tokens=token)
-    #     dict_cursor.execute(query_string, bad_token)
-    #     bad_token = dict_cursor.fetchone()[0]
-    #     cursor.commit()
-    #     dict_cursor.close()
-    #     return bad_token
+    @staticmethod
+    def logout_user(dict_cursor, cursor, self, token):
+        """logs out a user by adding their token to the blacklist table"""
+        query_string = "INSERT INTO blacklist VALUES (%(tokens)s) RETURNING tokens"
+        bad_token = dict(tokens=token)
+        dict_cursor.execute(query_string, bad_token)
+        bad_token = dict_cursor.fetchone()[0]
+        cursor.commit()
+        dict_cursor.close()
+        return bad_token
