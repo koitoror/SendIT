@@ -30,7 +30,7 @@ class Parcel(object):
     def modify_parcel(dict_cursor, cursor, parcel_name, status, parcel_id, user_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized")
+            api.abort(401, "Unauthorized to edit this parcel order")
         query = "UPDATE parcels SET parcel_name=%s, status=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (parcel_name, status, parcel_id))
 
@@ -39,7 +39,7 @@ class Parcel(object):
     def modify_parcel_user_cancel(dict_cursor, cursor, cancel_order, parcel_id, user_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized")
+            api.abort(401, "Unauthorized to edit this parcel order")
         query = "UPDATE parcels SET cancel_order=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (cancel_order, parcel_id))
 
@@ -47,23 +47,21 @@ class Parcel(object):
     def modify_parcel_user_destination(dict_cursor, cursor, destination_location, parcel_id, user_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized")
+            api.abort(401, "Unauthorized to edit this parcel order")
         query = "UPDATE parcels SET destination_location=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (destination_location, parcel_id))
     
     @staticmethod   
-    def modify_parcel_admin_pl(dict_cursor, cursor, present_location, parcel_id, user_id):
+    def modify_parcel_admin_pl(dict_cursor, cursor, present_location, parcel_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-        if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized")
         query = "UPDATE parcels SET present_location=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (present_location, parcel_id))
 
     @staticmethod   
-    def modify_parcel_admin_status(dict_cursor, cursor, status, parcel_id, user_id):
+    def modify_parcel_admin_status(dict_cursor, cursor, status, parcel_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-        if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized")
+        # if data["user_id"] != str(user_id):
+        #     api.abort(401, "Unauthorized to edit this parcel order")
         query = "UPDATE parcels SET status=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (status, parcel_id))
         
@@ -71,7 +69,7 @@ class Parcel(object):
     def delete_parcel(dict_cursor, cursor, parcel_id, user_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized")
+            api.abort(401, "Unauthorized to delete this parcel order")
         query = "DELETE FROM parcels WHERE parcel_id=%s"
         dict_cursor.execute(query, [parcel_id])
      
@@ -79,6 +77,28 @@ class Parcel(object):
     def get_all(dict_cursor, user_id):
         query_string="SELECT * FROM parcels WHERE user_id = %s"
         dict_cursor.execute(query_string, [user_id])
+        parcels = dict_cursor.fetchall()
+
+        results = []
+        for parcel in parcels:
+
+            obj = {
+                "parcel_id":parcel["parcel_id"],
+                "parcel_name":parcel["parcel_name"],
+                "pickup_location":parcel["pickup_location"],
+                "destination_location":parcel["destination_location"],
+                "price":parcel["price"],
+                "status":parcel["status"],
+                "user_id":parcel["user_id"],
+                "date_ordered":parcel["date_ordered"].strftime('%d-%b-%Y : %H:%M:%S'),
+            }
+            results.append(obj)
+        return results
+
+    @staticmethod   
+    def get_all_admin(dict_cursor):
+        query_string="SELECT * FROM parcels"
+        dict_cursor.execute(query_string)
         parcels = dict_cursor.fetchall()
         results = []
         for parcel in parcels:
