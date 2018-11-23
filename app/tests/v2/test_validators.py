@@ -209,7 +209,7 @@ class TestValidatorsCase(BaseTestCase):
             self.assertIn(b"status is a required field", rv.data)
 
     def test_non_digit_status(self):
-        "test for non-digig status."
+        "test for non-digit status."
         with self.client:
             res = register_user(self)
             self.assertTrue(res.status_code, 201)
