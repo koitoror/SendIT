@@ -26,8 +26,19 @@ class BaseTestCase(TestCase):
             username="kamardaniel",
             email='kamardaniel@gmail.com',
             password='password',
-            confirm='password'
+            confirm='password',
+            admin=False
         )
+
+        self.admin = User(
+            user_id=11,
+            username="kamardaniel1",
+            email='kamardaniel1@gmail.com',
+            password='password',
+            confirm='password',
+            admin=True
+        )
+
         self.parcel_obj = Parcel(
             parcel_id=1,
             parcel_name="first parcel model test",
