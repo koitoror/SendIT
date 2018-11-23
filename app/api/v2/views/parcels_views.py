@@ -1,8 +1,7 @@
 # third-party imports
 from flask_restplus import Resource
-# from flask_mail import Message, Mail
-
-# mail = Mail()
+from flask_mail import Message, Mail
+mail = Mail()
 
 
 # local imports
@@ -50,7 +49,6 @@ class ParcelList(Resource):
     @api.response(401, "Unauthorized to view these parcels")
     @api.header('x-access-token', type=str, description='access token')
     @admin_required
-    # def get(admin, self):
     def get(self):
         """List all Parcels"""
 
@@ -120,13 +118,9 @@ class UserParcels(Resource):
     @api.doc("list_all_parcel_delivery_orders_by_user", security='apikey')
     @api.response(404, "Parcel delivery orders Not Found")
     @api.response(401, "Unauthorized to view these parcels")
-    # @api.marshal_list_with(parcel, envelope="parcels")
-    # @user_required
     @token_required
     @api.header('x-access-token', type=str, description='access token')
     def get(self, user_id):
-    # def get(user_id, self):
-    # def get(self):
 
 
         """Fetch/list all parcel delivery orders by a specific/single user"""
