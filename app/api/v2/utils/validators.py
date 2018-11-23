@@ -135,20 +135,16 @@ def validate_update_parcel(parcel, data):
         return {'warning': 'parcel_name is too long'}, 400
 
 
-def validate_update_parcel_user_cancel(parcel, data):
-    """ this funtion validates the updated parcel data """
-
-    # # Check for empty cancel_order
-    # if data['cancel_order'] == '':
-    #     data['cancel_order'] = parcel['cancel_order']
-
-
 def validate_update_parcel_user_destination(parcel, data):
     """ this funtion validates the updated parcel data """
 
     # Check for empty destination_location
     if data['destination_location'] == '':
         data['destination_location'] = parcel['destination_location']
+    
+    # Check for empty destination_location
+    elif parcel['destination_location'] == ' ':
+        return {'warning': 'destination_location is a required field'}, 400
     
     # check for valid destination_location
     if data['destination_location'].strip(' ').isdigit():
