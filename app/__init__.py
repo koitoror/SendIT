@@ -2,6 +2,9 @@
 
 # third-party imports
 from flask import Flask, jsonify
+from flask_mail import Mail
+
+mail = Mail()
 
 # local imports
 from instance.config import app_config
@@ -16,6 +19,9 @@ def create_app(config_name):
     # initializing the app
     app = Flask(__name__)
     app.config.from_object(app_config[config_name])
+
+    mail = Mail(app)
+
 
     # registering the blueprint
     app.register_blueprint(v2)
