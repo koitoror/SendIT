@@ -48,7 +48,6 @@ class ParcelList(Resource):
     @api.doc("list_parcels", security='apikey')
     @api.response(404, "Parcels Not Found")
     @api.response(401, "Unauthorized to view these parcels")
-    # @api.marshal_list_with(parcel, envelope="parcels")
     @api.header('x-access-token', type=str, description='access token')
     @admin_required
     # def get(admin, self):
@@ -238,7 +237,6 @@ class AdminStatus(Resource):
 
     @api.doc('updates status of a parcel delivery order', security='apikey')
     @api.expect(update_parcel_parsers_admin_status)
-    # @user_required
     @admin_required
     @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
