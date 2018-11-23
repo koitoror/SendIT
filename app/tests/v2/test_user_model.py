@@ -8,7 +8,7 @@ from app.api.v2.models.user import User
 class TestUserModel(BaseTestCase):
 
     def test_generate_token(self):
-        token = User.generate_token(self.user.user_id)
+        token = User.generate_token(self.user.user_id, self.user.admin)
         self.assertTrue(isinstance(token, bytes))
 
     def test_get_user_by_username(self):
