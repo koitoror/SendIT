@@ -4,7 +4,6 @@ from flask_bcrypt import Bcrypt
 
 # local imports
 from app.database import Database
-
 from ..models.user import User
 from ..utils.udto import api, register_parser, login_model, login_parser, register_model
 from ..utils.validators import validate_user_data
@@ -60,7 +59,7 @@ class LoginUser(Resource):
                 if not Bcrypt().check_password_hash(user["password"], args["password"]):
                     return {"warning": "Invalid password"},400
 
-                token = User.generate_token(user["id"])
+                token = User.generate_token(user["id"], user["admin"])
 
                 return {"message": "Logged in successfully", "token": token.decode("UTF-8")}
             return {"warning": "No user found. Please sign up"},401

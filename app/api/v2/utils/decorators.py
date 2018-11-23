@@ -26,6 +26,10 @@ def user_required(f):
         try:
             payload = jwt.decode(token, current_app.config.get("SECRET_KEY"))
             user_id = payload['sub']
+            if payload['admin'] is True:
+                return make_response(jsonify({
+                    "message": "Not authorized to perform this function"}),
+                    401)
 
         except jwt.ExpiredSignatureError:
             api.abort(400, "Token has expired. Please login again")
@@ -52,8 +56,8 @@ def admin_required(f):
             api.abort(400, "Token Missing")
         try:
             payload = jwt.decode(token, current_app.config.get("SECRET_KEY"))
-            # user_id = payload['sub']
-            if payload['admin'] is not True:
+
+            if payload['admin'] is False:
                 return make_response(jsonify({
                     "message": "Not authorized to perform this function"}),
                     401)
@@ -64,7 +68,7 @@ def admin_required(f):
         except jwt.InvalidTokenError:
             api.abort(400, "Invalid token")
 
-        return f(admin, *args, **kwargs)
+        return f(*args, **kwargs)
 
     return wrap
 
@@ -91,5 +95,5 @@ def token_required(f):
         except jwt.InvalidTokenError:
             api.abort(400, "Invalid token")
 
-        return f(user_id, *args, **kwargs)
+        return f(*args, **kwargs)
     return wrap

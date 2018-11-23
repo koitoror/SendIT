@@ -145,7 +145,6 @@ To test endpoints manually fire up postman and run the following endpoints
 --- | ---
 POST  `/api/v1/auth/signup` | Register a user
 POST  `/api/v1/auth/login` | Logs in a user
-
 POST  `/api/v2/auth/signup` | Register a user
 POST  `/api/v2/auth/login` | Logs in a user
 
@@ -160,7 +159,6 @@ DELETE  `/api/v1/parcels/<parcelId>` | Delete a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>` | Update a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>/cancel` | Cancel a parcel delivery order by user
 GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders by user
-
 GET  `/api/v2/parcels` | Fetch all parcel delivery orders for all users by admin
 POST  `/api/v2/parcels` | Create a parcel delivery order by user
 GET  `/api/v2/parcels/<parcelId>` | Fetch a single parcel delivery order by user
