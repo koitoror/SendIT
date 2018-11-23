@@ -43,7 +43,7 @@ class ParcelList(Resource):
 
 @api.route("/parcels/<int:parcel_id>")
 @api.param("parcel_id", "parcel identifier")
-@api.response(404, 'Parcel not found')
+@api.response(404, 'Parcel order not found')
 class Parcel(Resource):
     """Displays a single parcel item and lets you delete them."""
 
@@ -77,8 +77,8 @@ class Parcel(Resource):
 
 
 @api.route("/users/<int:user_id>/parcels")
-@api.param("user_id", "parcel identifier")
-@api.response(404, 'Parcel not found')
+@api.param("user_id", "user identifier")
+@api.response(404, 'Parcel order not found')
 class UserParcels(Resource):
     """Displays all parcel delivery orders by a specific/single user."""
 
@@ -92,7 +92,7 @@ class UserParcels(Resource):
 
 @api.route("/parcels/<int:parcel_id>/cancel")
 @api.param("parcel_id", "parcel identifier")
-@api.response(404, 'Parcel not found')
+@api.response(404, 'Parcel order not found')
 class UserCancel(Resource):
     """Displays a single parcel deliver order and lets you cancel order."""
 
