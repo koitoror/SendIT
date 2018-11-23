@@ -74,7 +74,7 @@ update_parcels_admin_status = api.model(
 update_parcels_user = api.model(
     "update_parcels_user", {
         "cancel_order": fields.Boolean(
-            "parcels cancel_order", example=True),
+            "parcels cancel_order", example=False),
         "destination_location": fields.String(
             "parcels destination_location", example="MOMBASA")
 
@@ -83,7 +83,7 @@ update_parcels_user = api.model(
 update_parcels_user_cancel = api.model(
     "update_parcels_user_cancel", {
         "cancel_order": fields.Boolean(
-            "parcels cancel_order", example=True)
+            "parcels cancel_order", example=False)
 
     })
 
