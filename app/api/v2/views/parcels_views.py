@@ -1,7 +1,7 @@
 # third-party imports
 from flask_restplus import Resource
-from flask_mail import Message, Mail
-mail = Mail()
+# from flask_mail import Message, Mail
+# mail = Mail()
 
 
 # local imports
@@ -127,15 +127,11 @@ class UserParcels(Resource):
         parcels = Parcel.get_all(dict_cursor, user_id)
 
         for parcel in parcels:
-            # if parcel["user_id"] != int(user_id):
             if str(user_id) == parcel["user_id"]:
                 api.abort(401, "Unauthorized to view this parcel")
             elif str(user_id) != parcel["user_id"]:
-                # return parcels  
-                # return {"message": "Unauthorized to view this parcel"}, 401
                 if not parcels:
                     api.abort(404, "No parcels for user {}".format(user_id))
-                    # api.abort(401, "Unauthorized to view this parcel")
 
         return parcels
 
