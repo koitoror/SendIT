@@ -64,6 +64,11 @@ class Database(object):
                     REFERENCES users (id)
                     ON UPDATE CASCADE ON DELETE CASCADE
             )
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS blacklist(
+                tokens VARCHAR(200) NOT NULL
+            )
             """
         )
         for table in tables:
