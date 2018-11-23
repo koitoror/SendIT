@@ -64,6 +64,6 @@ def admin_required(f):
         except jwt.InvalidTokenError:
             api.abort(400, "Invalid token")
 
-        return f(admin, *args, **kwargs)
+        return f(*args, **kwargs)
 
     return wrap
