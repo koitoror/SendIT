@@ -10,8 +10,8 @@ from ..utils.pdto import api, parcel, post_parcel, parcel_parser, update_parcel_
 from ..utils.pdto import update_parcels_admin, update_parcel_parsers_admin, update_parcel_parser_user_destination
 from ..utils.pdto import update_parcels_user, update_parcel_parser_user_cancel, update_parcel_parsers_admin_pl, update_parcel_parsers_admin_status
 from ..utils.decorators import token_required, user_required, admin_required
-from ..utils.validators import validate_parcel_data, validate_update_parcel, validate_update_parcel_admin_pl
-from ..utils.validators import validate_update_parcel_admin, validate_update_parcel_user_destination, validate_update_parcel_admin_status
+from ..utils.validators import validate_parcel_data, validate_update_parcel_user_cancel, validate_update_parcel_admin_pl
+from ..utils.validators import validate_update_parcel_user_destination, validate_update_parcel_admin_status
 from app.database import Database
 
 conn = Database()
@@ -76,27 +76,6 @@ class ParcelClass(Resource):
             api.abort(401, "Unauthorized to view this parcel")
         return parcel
 
-    @api.doc('updates a parcel', security='apikey')
-    @api.expect(post_parcel)
-    @api.response(401, "Unauthorized to edit this parcel")
-    @user_required
-    @api.header('x-access-token', type=str, description='access token')
-    def put(user_id, self, parcel_id):
-        """Updates a single Parcel."""
-        args = update_parcel_parser.parse_args()
-        parcel_name = args["parcel_name"]
-        status = args["status"]
-        parcel = {"parcel_name": parcel_name, "status":status}
-        parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-
-        invalid_data = validate_update_parcel(parcel, args)
-
-        if invalid_data:
-            return invalid_data
-        
-        Parcel.modify_parcel(dict_cursor, cursor, args["parcel_name"], args["status"], parcel_id, user_id)
-        return {"message": "Updated successfully", "parcel":parcel}
-
     @api.doc('deletes a parcel')
     @api.response(204, 'Parcel Deleted')
     @user_required
@@ -144,17 +123,22 @@ class UserCancel(Resource):
     @api.doc('updates/cancels a parcel delivery order', security='apikey')
     @api.expect(update_parcel_parser_user_cancel)
     @user_required
-    @api.response(401, "Unauthorized to edit this parcel")
+    @api.response(401, "Unauthorized to edit/cancel this parcel")
     @api.header('x-access-token', type=str, description='access token')
     def put(user_id, self, parcel_id):
         """Cancels a single Parcel delivery order by user."""
 
         args = update_parcel_parser_user_cancel.parse_args()
-
+        status = args["status"]
+        parcel = {"status":status}
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
 
+        invalid_data = validate_update_parcel_user_cancel(parcel, args)
 
-        Parcel.modify_parcel_user_cancel(dict_cursor, cursor, args["cancel_order"], parcel_id, user_id)
+        if invalid_data:
+            return invalid_data
+
+        Parcel.modify_parcel_user_cancel(dict_cursor, cursor, args["status"], parcel_id, user_id)
         return {"message": "Order canceled successfully", "parcel":parcel}
 
          
