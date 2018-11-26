@@ -5,7 +5,7 @@
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 # SendIT
-SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories. .
+SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories.
 
 ### Required Features
 1.	Users can create an account and log in. 
