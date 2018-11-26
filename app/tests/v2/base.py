@@ -23,7 +23,7 @@ class BaseTestCase(TestCase):
         
         self.user = User(
             user_id=1,
-            username="kamardaniel",
+            username="kamar",
             email='kamardaniel@gmail.com',
             password='password',
             confirm='password',
@@ -32,10 +32,10 @@ class BaseTestCase(TestCase):
 
         self.admin = User(
             user_id=11,
-            username="kamardaniel1",
+            username="admin",
             email='kamardaniel1@gmail.com',
-            password='password',
-            confirm='password',
+            password='password123',
+            confirm='password123',
             admin=True
         )
 
@@ -75,13 +75,9 @@ class BaseTestCase(TestCase):
                 "status": ""
             }
         )
-        self.update_parcel = json.dumps(
+        self.update_parcel_destination = json.dumps(
             {
-                "parcel_name": "first edition",
-                "pickup_location": "DROP VAN",
-                "destination_location": "MOMBASA",
-                "price": 1000,
-                "status": "tdd is very awesome"
+                "destination_location": "MOMBASA"
             }
         )
 
