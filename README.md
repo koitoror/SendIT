@@ -1,7 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![Build Status](https://travis-ci.com/koitoror/SendIT.svg?branch=develop)](https://travis-ci.com/koitoror/SendIT)
-[![Coverage Status](https://coveralls.io/repos/github/koitoror/SendIT/badge.svg?branch=develop1)](https://coveralls.io/github/koitoror/SendIT?branch=develop1)
+[![Coverage Status](https://coveralls.io/repos/github/koitoror/SendIT/badge.svg?branch=develop)](https://coveralls.io/github/koitoror/SendIT?branch=develop)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4b0023611bae4ec48725639d631ac2da)](https://www.codacy.com/app/koitoror/SendIT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=koitoror/SendIT&amp;utm_campaign=Badge_Grade)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-green.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 ## SendIT
