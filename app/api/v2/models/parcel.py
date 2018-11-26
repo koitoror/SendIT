@@ -27,21 +27,12 @@ class Parcel(object):
         return parcel
 
     @staticmethod   
-    def modify_parcel(dict_cursor, cursor, parcel_name, status, parcel_id, user_id):
+    def modify_parcel_user_cancel(dict_cursor, cursor, status, parcel_id, user_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         if data["user_id"] != str(user_id):
             api.abort(401, "Unauthorized to edit this parcel order")
-        query = "UPDATE parcels SET parcel_name=%s, status=%s WHERE (parcel_id=%s)"
-        cursor.execute(query, (parcel_name, status, parcel_id))
-
-
-    @staticmethod   
-    def modify_parcel_user_cancel(dict_cursor, cursor, cancel_order, parcel_id, user_id):
-        data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-        if data["user_id"] != str(user_id):
-            api.abort(401, "Unauthorized to edit this parcel order")
-        query = "UPDATE parcels SET cancel_order=%s WHERE (parcel_id=%s)"
-        cursor.execute(query, (cancel_order, parcel_id))
+        query = "UPDATE parcels SET status=%s WHERE (parcel_id=%s)"
+        cursor.execute(query, (status, parcel_id))
 
     @staticmethod   
     def modify_parcel_user_destination(dict_cursor, cursor, destination_location, parcel_id, user_id):
