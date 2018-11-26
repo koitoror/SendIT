@@ -136,7 +136,7 @@ update_parcel_parser_user_destination.add_argument(
 
 update_parcel_parser_user_cancel = reqparse.RequestParser()
 update_parcel_parser_user_cancel.add_argument(
-    'cancel_order', type=bool, help='status should be a boolean')
+    'status', type=str, help='status should be a string')
 
 update_parcel_parser = reqparse.RequestParser()
 update_parcel_parser.add_argument('parcel_name', required=True, type=str, help='parcel_name should be a string')
