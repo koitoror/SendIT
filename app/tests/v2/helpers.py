@@ -20,14 +20,14 @@ def register_user(self):
         content_type='application/json'
         )
 def register_admin(self):
-    """helper function for registering a user."""
-    username='kamar',
-    email='kamardaniel@gmail.com',
-    password='password123',
+    """helper function for registering an admin user."""
+    username='admin'
+    email='kamardaniel1@gmail.com'
+    password=b'password123'
     hash_password = Bcrypt().generate_password_hash(password).decode()
     admin = True
+    
     User.create_admin(cursor, username=username, email=email, password=hash_password, admin=admin)
-    pass
 
 def login_user(self):
     """helper function for login a user."""
