@@ -27,40 +27,41 @@ class ParcelsTestCase(BaseTestCase):
             self.assertEqual(rv.status_code, 201)
             self.assertIn(b'Parcel added successfully', rv.data)
 
-    # def test_api_can_get_all_parcels(self):
-    #     """Test API can get all."""
-    #     with self.client:
+    def test_api_can_get_all_parcels(self):
+        """Test API can get all."""
 
-    #         res = register_admin(self)
-    #         self.assertTrue(res.status_code, 201)
-    #         res = login_admin(self)
-    #         access_token = res.get_json()['token']
+        with self.client:
+            res = register_user(self)
+            self.assertTrue(res.status_code, 201)
 
-    #         # create a parcel
-    #         res = self.client.post(
-    #             'api/v2/parcels',
-    #             headers={
-    #                 "x-access-token": access_token,
-    #                 "content-type": "application/json"
-    #             },
-    #             data=self.parcel
-    #             )
-    #         self.assertEqual(res.status_code, 201)
+            res = login_user(self)
+            access_token = res.get_json()['token']
 
-    #         # get all the parcels that belong to all users
-    #         # login_admin(self)
-    #         res = login_admin(self)
-    #         access_token = res.get_json()['token']
+            # create a parcel
+            res = self.client.post(
+                'api/v2/parcels',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=self.parcel
+                )
+            self.assertEqual(res.status_code, 201)
 
-    #         res = self.client.get(
-    #             'api/v2/parcels',
-    #              headers={
-    #                 "x-access-token": access_token,
-    #                 "content-type": "application/json"
-    #             },
-    #         )
-    #         self.assertEqual(res.status_code, 200)
-    #         self.assertIn(b'first test', res.data)
+            # get all the parcels that belong to all users
+            register_admin(self)
+            res = login_admin(self)
+            access_token = res.get_json()['token']
+
+            res = self.client.get(
+                'api/v2/parcels',
+                 headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+            )
+            self.assertEqual(res.status_code, 200)
+            self.assertIn(b'first test', res.data)
 
     def test_api_can_get_parcel_by_id(self):
         """Test API can get a single parcel by using it's id."""
@@ -111,12 +112,12 @@ class ParcelsTestCase(BaseTestCase):
 
             # modify a parcel
             rv = self.client.put(
-                '/api/v2/parcels/1',
+                '/api/v2/parcels/1/destination',
                 headers={
                     "x-access-token": access_token,
                     "content-type": "application/json"
                 },
-                data=self.update_parcel
+                data=self.update_parcel_destination
                 )
             self.assertEqual(rv.status_code, 200)
 
@@ -127,7 +128,7 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
             )
-            self.assertIn(b'first edition', res.data)
+            self.assertIn(b'MOMBASA', res.data)
 
     def test_parcel_deletion(self):
         """Test API can delete an existing parcel."""
