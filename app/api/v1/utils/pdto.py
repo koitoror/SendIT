@@ -72,21 +72,21 @@ parcel_parser.add_argument('price', required=True,
                            help='price should be a integer')
 parcel_parser.add_argument(
     'pickup_location', required=True,
-                           type=str,
-                           help='pickup_location should be a string')
+    type=str,
+    help='pickup_location should be a string')
 parcel_parser.add_argument(
     'destination_location', required=True,
-                           type=str,
-                           help='destination_location should be a string')
+    type=str,
+    help='destination_location should be a string')
 parcel_parser.add_argument(
     'status', required=False,
-                           type=str,
-                           help='status should be a string')
+    type=str,
+    help='status should be a string')
 
 update_parcel_parser_admin = reqparse.RequestParser()
 update_parcel_parser_admin.add_argument(
     'present_location', type=str,
-                        help='present_location should be a string')
+    help='present_location should be a string')
 update_parcel_parser_admin.add_argument(
     'status', type=str, help='status should be a string')
 
@@ -94,6 +94,6 @@ update_parcel_parser_admin.add_argument(
 update_parcel_parser_user = reqparse.RequestParser()
 update_parcel_parser_user.add_argument(
     'destination_location', type=str,
-                            help='destination_location should be a string')
+    help='destination_location should be a string')
 update_parcel_parser_user.add_argument(
     'cancel_order', type=bool, help='status should be a boolean')

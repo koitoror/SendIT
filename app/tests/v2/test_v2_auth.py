@@ -23,7 +23,9 @@ class AuthTestCase(BaseTestCase):
         with self.client:
             res = register_user(self)
             self.assertEqual(res.status_code, 400)
-            self.assertIn(b'Email exists, please login or register with another email', res.data)
+            self.assertIn(
+                b'Email exists, please login or register with another email',
+                res.data)
 
     def test_user_login(self):
         with self.client:
@@ -50,19 +52,19 @@ class AuthTestCase(BaseTestCase):
             res = register_user(self)
             self.assertEqual(res.status_code, 201)
             self.assertEqual(res.status_code, 201)
-            
+
             # loging a user with incorrect credentials
             rv = self.client.post(
-            '/api/v2/auth/login',
-            data=json.dumps(dict(
-                username='kamar',
-                password='password'
-            )),
-            content_type='application/json'
+                '/api/v2/auth/login',
+                data=json.dumps(dict(
+                    username='kamar',
+                    password='password'
+                )),
+                content_type='application/json'
             )
             self.assertEqual(rv.status_code, 400)
             self.assertIn(b'Invalid password', rv.data)
-            
+
 
 if __name__ == '__main__':
     unittest.main()

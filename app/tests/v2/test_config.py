@@ -19,7 +19,6 @@ class TestDevelopmentSettings(TestCase):
         self.assertFalse(app.config['DEBUG'] is False)
 
 
-
 class TestTestingSettings(TestCase):
     """class for testing the testing configs."""
 

@@ -2,21 +2,33 @@
 from flask_restplus import Resource
 # from flask_mail import Message, Mail
 # mail = Mail()
+from datetime import datetime
 
 
 # local imports
 from ..models.parcel import Parcel
-from ..utils.pdto import api, parcel, post_parcel, parcel_parser, update_parcel_parser, update_parcels_admin_pl, update_parcels_admin_status
-from ..utils.pdto import update_parcels_admin, update_parcel_parsers_admin, update_parcel_parser_user_destination
-from ..utils.pdto import update_parcels_user, update_parcel_parser_user_cancel, update_parcel_parsers_admin_pl, update_parcel_parsers_admin_status
+from ..utils.pdto import api, parcel, post_parcel
+from ..utils.pdto import parcel_parser
+from ..utils.pdto import update_parcels_user_cancel
+from ..utils.pdto import update_parcels_user_destination
+from ..utils.pdto import update_parcels_admin_pl, update_parcels_admin_status
+from ..utils.pdto import update_parcel_parser_user_destination
+from ..utils.pdto import update_parcel_parser_user_cancel
+from ..utils.pdto import update_parcel_parsers_admin_pl
+from ..utils.pdto import update_parcel_parsers_admin_status
 from ..utils.decorators import token_required, user_required, admin_required
-from ..utils.validators import validate_parcel_data, validate_update_parcel_user_cancel, validate_update_parcel_admin_pl
-from ..utils.validators import validate_update_parcel_user_destination, validate_update_parcel_admin_status
+from ..utils.validators import validate_parcel_data
+from ..utils.validators import validate_update_parcel_user_cancel
+from ..utils.validators import validate_update_parcel_user_destination
+from ..utils.validators import validate_update_parcel_admin_pl
+from ..utils.validators import validate_update_parcel_admin_status
+
 from app.database import Database
 
 conn = Database()
 cursor = conn.cursor
 dict_cursor = conn.dict_cursor
+
 
 @api.route("/parcels")
 class ParcelList(Resource):
@@ -41,7 +53,9 @@ class ParcelList(Resource):
         pickup_location = args["pickup_location"]
         destination_location = args["destination_location"]
         price = args["price"]
-        Parcel.create_parcel(cursor, parcel_name, price, pickup_location, destination_location, status, user_id)
+        Parcel.create_parcel(cursor, parcel_name, price,
+                             pickup_location, destination_location,
+                             status, user_id)
         return {"message": "Parcel added successfully"}, 201
 
     @api.doc("list_parcels", security='apikey')
@@ -56,6 +70,7 @@ class ParcelList(Resource):
         if not parcels:
             api.abort(404, "No all parcels for all user to view by admin")
         return parcels
+
 
 @api.response(401, "Unauthorized to view this parcel")
 @api.route("/parcels/<int:parcel_id>")
@@ -88,6 +103,7 @@ class ParcelClass(Resource):
         Parcel.delete_parcel(dict_cursor, cursor, parcel_id, user_id)
         return {"message": "Parcel deleted successully"}, 200
 
+
 @api.route("/users/<int:user_id>/parcels")
 @api.param("user_id", "user identifier")
 @api.response(404, 'Parcel order not found')
@@ -100,19 +116,18 @@ class UserParcels(Resource):
     @token_required
     @api.header('x-access-token', type=str, description='access token')
     def get(self, user_id):
-
-
         """Fetch/list all parcel delivery orders by a specific/single user"""
         parcels = Parcel.get_all(dict_cursor, user_id)
 
-        for parcel in parcels:
-            if str(user_id) == parcel["user_id"]:
+        for parcel1 in parcels:
+            if str(user_id) == parcel1["user_id"]:
                 api.abort(401, "Unauthorized to view this parcel")
-            elif str(user_id) != parcel["user_id"]:
+            elif str(user_id) != parcel1["user_id"]:
                 if not parcels:
                     api.abort(404, "No parcels for user {}".format(user_id))
 
         return parcels
+
 
 @api.route("/parcels/<int:parcel_id>/cancel")
 @api.param("parcel_id", "parcel identifier")
@@ -121,7 +136,7 @@ class UserCancel(Resource):
     """Displays a single parcel deliver order and lets you cancel order."""
 
     @api.doc('updates/cancels a parcel delivery order', security='apikey')
-    @api.expect(update_parcel_parser_user_cancel)
+    @api.expect(update_parcels_user_cancel)
     @user_required
     @api.response(401, "Unauthorized to edit/cancel this parcel")
     @api.header('x-access-token', type=str, description='access token')
@@ -130,70 +145,81 @@ class UserCancel(Resource):
 
         args = update_parcel_parser_user_cancel.parse_args()
         status = args["status"]
-        parcel = {"status":status}
+        date_modified = str(
+            datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
+        parcel = {"status": status, "date_modified": date_modified}
+
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
 
         invalid_data = validate_update_parcel_user_cancel(parcel, args)
-
         if invalid_data:
             return invalid_data
 
-        Parcel.modify_parcel_user_cancel(dict_cursor, cursor, args["status"], parcel_id, user_id)
-        return {"message": "Order canceled successfully", "parcel":parcel}
+        Parcel.modify_parcel_user_cancel(
+            dict_cursor, cursor, args["status"],
+            date_modified, parcel_id, user_id)
+        return {"message": "Order canceled successfully", "parcel": parcel}
 
-         
+
 @api.route("/parcels/<int:parcel_id>/destination")
 @api.param("parcel_id", "parcel identifier")
 @api.response(404, 'Parcel order not found')
 class UserDestination(Resource):
-    """Displays a single parcel deliver order and lets you cancel order."""
+    """Displays a parcel deliver order and lets you change the destination."""
 
-    @api.doc('updates destination of a parcel delivery order', security='apikey')
-    @api.expect(update_parcel_parser_user_destination)
+    @api.doc('updates destination of a parcel delivery order',
+             security='apikey')
+    @api.expect(update_parcels_user_destination)
     @user_required
     @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
     def put(user_id, self, parcel_id):
-        """Changes the destination of a single Parcel delivery order by user."""
+        """Changes the destination of a Parcel delivery order by user."""
 
         args = update_parcel_parser_user_destination.parse_args()
         destination_location = args["destination_location"]
         parcel = {"destination_location": destination_location}
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-        
+
         invalid_data = validate_update_parcel_user_destination(parcel, args)
-        
+
         if invalid_data:
             return invalid_data
 
-        Parcel.modify_parcel_user_destination(dict_cursor, cursor, args["destination_location"], parcel_id, user_id)
-        return {"message": "Destination updated successfully", "parcel":parcel}
+        Parcel.modify_parcel_user_destination(
+            dict_cursor, cursor, args["destination_location"],
+            parcel_id, user_id)
+        return {"message": "Destination updated successfully",
+                "parcel": parcel}
+
 
 @api.route("/parcels/<int:parcel_id>/presentLocation")
 @api.param("parcel_id", "parcel identifier")
 @api.response(404, 'Parcel order not found')
 class AdminPresentLocation(Resource):
-    """Displays a single parcel deliver order and lets you/admin to change the present location."""
+    """Displays parcel deliver order and lets admin change present location."""
 
-    @api.doc('updates present location of a parcel delivery order', security='apikey')
-    @api.expect(update_parcel_parsers_admin_pl)
+    @api.doc('updates present location of a parcel delivery order',
+             security='apikey')
+    @api.expect(update_parcels_admin_pl)
     @admin_required
     @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
     def put(self, parcel_id):
-        """Changes the present location of a single Parcel delivery order by admin."""
+        """Changes the present location of a Parcel delivery order by admin."""
 
         args = update_parcel_parsers_admin_pl.parse_args()
         present_location = args["present_location"]
         parcel = {"present_location": present_location}
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-        
+
         invalid_data = validate_update_parcel_admin_pl(parcel, args)
-        
+
         if invalid_data:
             return invalid_data
 
-        Parcel.modify_parcel_admin_pl(dict_cursor, cursor, args["present_location"], parcel_id)
+        Parcel.modify_parcel_admin_pl(
+            dict_cursor, cursor, args["present_location"], parcel_id)
 
         # msg = Message("Parcel Order !!! Present Location Changed",
         #           sender="dan@send-it-ke.com",
@@ -201,16 +227,18 @@ class AdminPresentLocation(Resource):
         #           recipients=["recipient@example.com"])
         # mail.send(msg)
 
-        return {"message": "Present location updated successfully", "parcel":parcel}
+        return {"message": "Present location updated successfully",
+                "parcel": parcel}
+
 
 @api.route("/parcels/<int:parcel_id>/status")
 @api.param("parcel_id", "parcel identifier")
 @api.response(404, 'Parcel order not found')
 class AdminStatus(Resource):
-    """Displays a single parcel deliver order and lets you/admin to change the status."""
+    """Displays a single parcel deliver order and lets admin change status."""
 
     @api.doc('updates status of a parcel delivery order', security='apikey')
-    @api.expect(update_parcel_parsers_admin_status)
+    @api.expect(update_parcels_admin_status)
     @admin_required
     @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
@@ -221,11 +249,11 @@ class AdminStatus(Resource):
         status = args["status"]
         parcel = {"status": status}
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
-        
+
         invalid_data = validate_update_parcel_admin_status(parcel, args)
         if invalid_data:
             return invalid_data
 
-        Parcel.modify_parcel_admin_status(dict_cursor, cursor, args["status"], parcel_id)
-        return {"message": "Status updated successfully", "parcel":parcel}
-        
+        Parcel.modify_parcel_admin_status(
+            dict_cursor, cursor, args["status"], parcel_id)
+        return {"message": "Status updated successfully", "parcel": parcel}

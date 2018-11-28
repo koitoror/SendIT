@@ -7,6 +7,7 @@ from app.database import Database
 db = Database()
 cursor = db.cursor
 
+
 def register_user(self):
     """helper function for registering a user."""
     return self.client.post(
@@ -18,16 +19,20 @@ def register_user(self):
             confirm='password123'
         )),
         content_type='application/json'
-        )
+    )
+
+
 def register_admin(self):
     """helper function for registering an admin user."""
-    username='admin'
-    email='kamardaniel1@gmail.com'
-    password=b'password123'
+    username = 'admin'
+    email = 'kamardaniel1@gmail.com'
+    password = b'password123'
     hash_password = Bcrypt().generate_password_hash(password).decode()
     admin = True
-    
-    User.create_admin(cursor, username=username, email=email, password=hash_password, admin=admin)
+
+    User.create_admin(cursor, username=username, email=email,
+                      password=hash_password, admin=admin)
+
 
 def login_user(self):
     """helper function for login a user."""
@@ -39,6 +44,7 @@ def login_user(self):
         )),
         content_type='application/json'
     )
+
 
 def login_admin(self):
     """helper function for login an admin."""

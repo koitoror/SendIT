@@ -9,7 +9,7 @@ api_v2 = Blueprint('api', __name__)
 
 
 authorizations = {
-    "apikey":{
+    "apikey": {
         "type": "apiKey",
         "in": "header",
         "name": "x-access-token"

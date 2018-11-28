@@ -20,7 +20,7 @@ class BaseTestCase(TestCase):
         self.cursor = self.db.cursor
         self.dict_cursor = self.db.dict_cursor
         self.db.create_tables()
-        
+
         self.user = User(
             user_id=1,
             username="kamar",

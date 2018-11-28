@@ -35,7 +35,7 @@ def validate_user_data(user):
 
     # Check for a valid email
     if not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
-            user['email'].strip(' ')):
+                    user['email'].strip(' ')):
         return {'warning': 'Enter a valid email address'}, 400
 
     # check for a valid password
@@ -71,14 +71,14 @@ def validate_parcel_data(parcel):
     # Check for empty status
     elif parcel['status'] == '':
         return {'warning': 'status is a required field'}, 400
-    
+
     # check for a valid parcel_name
     if parcel['parcel_name'].strip(' ').isdigit():
         return {'warning': 'Enter a non digit parcel_name'}, 400
 
     if not parcel["parcel_name"].strip():
         return {"warning": "Enter a valid parcel_name"}, 400
-    
+
     # check for valid pickup_location
     if parcel['pickup_location'].strip(' ').isdigit():
         return {'warning': 'Enter non digit pickup_location'}, 400
@@ -111,7 +111,7 @@ def validate_update_parcel_user_cancel(parcel, data):
     # Check for empty status
     if data['status'] == '':
         data['status'] = parcel['status']
-    
+
     # check for valid status
     if data['status'].strip(' ').isdigit():
         return {'warning': 'Enter non digit status'}, 400
@@ -130,11 +130,11 @@ def validate_update_parcel_user_destination(parcel, data):
     # Check for empty destination_location
     if data['destination_location'] == '':
         data['destination_location'] = parcel['destination_location']
-    
+
     # Check for empty destination_location
     elif parcel['destination_location'] == ' ':
         return {'warning': 'destination_location is a required field'}, 400
-    
+
     # check for valid destination_location
     if data['destination_location'].strip(' ').isdigit():
         return {'warning': 'Enter non digit destination_location'}, 400
@@ -146,13 +146,14 @@ def validate_update_parcel_user_destination(parcel, data):
     if len(data['destination_location']) > 40:
         return {'warning': 'destination_location is too long'}, 400
 
+
 def validate_update_parcel_admin_pl(parcel, data):
     """ this funtion validates the updated parcel data """
 
     # Check for empty present_location
     if data['present_location'] == '':
         data['present_location'] = parcel['present_location']
-    
+
     # check for valid present_location
     if data['present_location'].strip(' ').isdigit():
         return {'warning': 'Enter non digit destination_location'}, 400
@@ -171,7 +172,7 @@ def validate_update_parcel_admin_status(parcel, data):
     # Check for empty status
     if data['status'] == '':
         data['status'] = parcel['status']
-    
+
     # check for valid status
     if data['status'].strip(' ').isdigit():
         return {'warning': 'Enter non digit status'}, 400

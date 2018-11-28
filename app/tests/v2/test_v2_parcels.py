@@ -7,7 +7,7 @@ class ParcelsTestCase(BaseTestCase):
     """Represents the parcels test case"""
 
     def test_parcel_creation(self):
-        """Test API can create a parcel.""" 
+        """Test API can create a parcel."""
 
         with self.client:
             res = register_user(self)
@@ -23,7 +23,7 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
                 data=self.parcel
-                )
+            )
             self.assertEqual(rv.status_code, 201)
             self.assertIn(b'Parcel added successfully', rv.data)
 
@@ -45,7 +45,7 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
                 data=self.parcel
-                )
+            )
             self.assertEqual(res.status_code, 201)
 
             # get all the parcels that belong to all users
@@ -55,7 +55,7 @@ class ParcelsTestCase(BaseTestCase):
 
             res = self.client.get(
                 'api/v2/parcels',
-                 headers={
+                headers={
                     "x-access-token": access_token,
                     "content-type": "application/json"
                 },
@@ -78,13 +78,13 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
                 data=self.parcel
-                )
+            )
             self.assertEqual(res.status_code, 201)
 
             # get all the parcels by a specific id
             res = self.client.get(
                 'api/v2/parcels/1',
-                 headers={
+                headers={
                     "x-access-token": access_token,
                     "content-type": "application/json"
                 },
@@ -107,7 +107,7 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
                 data=self.parcel
-                )
+            )
             self.assertEqual(res.status_code, 201)
 
             # modify a parcel
@@ -118,12 +118,12 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
                 data=self.update_parcel_destination
-                )
+            )
             self.assertEqual(rv.status_code, 200)
 
             res = self.client.get(
                 'api/v2/parcels/1',
-                 headers={
+                headers={
                     "x-access-token": access_token,
                     "content-type": "application/json"
                 },
@@ -145,9 +145,9 @@ class ParcelsTestCase(BaseTestCase):
                     "content-type": "application/json"
                 },
                 data=self.parcel
-                )
+            )
             self.assertEqual(res.status_code, 201)
-            
+
             # delete a parcel
             res = self.client.delete(
                 '/api/v2/parcels/1',
@@ -155,7 +155,7 @@ class ParcelsTestCase(BaseTestCase):
                     "x-access-token": access_token,
                     "content-type": "application/json"
                 }
-                )
+            )
             self.assertTrue(res.status_code, 200)
             self.assertIn(b"Parcel deleted successully", res.data)
             # test for Parcel order not found
@@ -165,9 +165,10 @@ class ParcelsTestCase(BaseTestCase):
                     "x-access-token": access_token,
                     "content-type": "application/json"
                 }
-                )
+            )
             self.assertEqual(res.status_code, 404)
             self.assertIn(b"Parcel 1 not found", res.data)
+
 
 if __name__ == "__main__":
     unittest.main()
