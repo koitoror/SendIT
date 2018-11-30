@@ -80,7 +80,7 @@ parcel_parser = reqparse.RequestParser()
 parcel_parser.add_argument(
     'parcel_name', required=True,
     type=str,
-    help='name should be a string')
+    help='parcel_name should be a string')
 parcel_parser.add_argument(
     'price', required=True,
     type=int,

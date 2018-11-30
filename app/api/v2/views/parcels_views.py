@@ -16,12 +16,13 @@ from ..utils.pdto import update_parcel_parser_user_destination
 from ..utils.pdto import update_parcel_parser_user_cancel
 from ..utils.pdto import update_parcel_parsers_admin_pl
 from ..utils.pdto import update_parcel_parsers_admin_status
-from ..utils.decorators import token_required, user_required, admin_required
+from ..utils.decorators import user_required, admin_required
 from ..utils.validators import validate_parcel_data
 from ..utils.validators import validate_update_parcel_user_cancel
 from ..utils.validators import validate_update_parcel_user_destination
 from ..utils.validators import validate_update_parcel_admin_pl
 from ..utils.validators import validate_update_parcel_admin_status
+from ..models.user import User
 
 from app.database import Database
 
@@ -66,7 +67,7 @@ class ParcelList(Resource):
     def get(self):
         """List all Parcels"""
 
-        parcels = Parcel.get_all_admin(dict_cursor)
+        parcels = Parcel.get_all_by_admin(dict_cursor)
         if not parcels:
             api.abort(404, "No all parcels for all user to view by admin")
         return parcels
@@ -80,9 +81,8 @@ class ParcelClass(Resource):
     """Displays a single parcel item and lets you delete them."""
 
     @api.marshal_with(parcel)
-    @api.doc('get one parcel')
+    @api.doc('get one parcel', security='apikey')
     @user_required
-    @api.doc(security='apikey')
     @api.header('x-access-token', type=str, description='access token')
     def get(user_id, self, parcel_id):
         """Displays a single Parcel."""
@@ -91,11 +91,10 @@ class ParcelClass(Resource):
             api.abort(401, "Unauthorized to view this parcel")
         return parcel
 
-    @api.doc('deletes a parcel')
+    @api.doc('deletes a parcel', security='apikey')
     @api.response(204, 'Parcel Deleted')
     @user_required
     @api.response(401, "Unauthorized to edit this parcel")
-    @api.doc(security='apikey')
     @api.header('x-access-token', type=str, description='access token')
     def delete(user_id, self, parcel_id):
         """Deletes a single Parcel."""
@@ -104,30 +103,27 @@ class ParcelClass(Resource):
         return {"message": "Parcel deleted successully"}, 200
 
 
-@api.route("/users/<int:user_id>/parcels")
-@api.param("user_id", "user identifier")
+@api.route("/users/<int:id>/parcels")
+@api.param("id", "user identifier")
 @api.response(404, 'Parcel order not found')
 class UserParcels(Resource):
     """Displays a single parcel item and lets you delete them."""
 
     @api.doc("list_all_parcel_delivery_orders_by_user", security='apikey')
-    @api.response(404, "Parcel delivery orders Not Found")
+    @api.response(404, "Parcel delivery orders Not Found for user")
     @api.response(401, "Unauthorized to view these parcels")
-    @token_required
+    @user_required
     @api.header('x-access-token', type=str, description='access token')
-    def get(self, user_id):
+    def get(user_id, self, id):
         """Fetch/list all parcel delivery orders by a specific/single user"""
-        parcels = Parcel.get_all(dict_cursor, user_id)
+        user = User.get_user_by_id(dict_cursor, id)
 
-        for parcel1 in parcels:
-            if str(user_id) == parcel1["user_id"]:
-                api.abort(401, "Unauthorized to view this parcel")
-            elif str(user_id) != parcel1["user_id"]:
-                if not parcels:
-                    api.abort(404, "No parcels for user {}".format(user_id))
+        if user["id"] != user_id:
+            api.abort(401, "Unauthorized to view this parcel")
+
+        parcels = Parcel.get_all_by_user(dict_cursor, user_id)
 
         return parcels
-
 
 @api.route("/parcels/<int:parcel_id>/cancel")
 @api.param("parcel_id", "parcel identifier")

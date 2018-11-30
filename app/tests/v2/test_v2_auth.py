@@ -46,11 +46,10 @@ class AuthTestCase(BaseTestCase):
             self.assertEqual(rv.status_code, 401)
             self.assertIn(b'No user found. Please sign up', rv.data)
 
-    def test_user_with_incorrect_credentilas(self):
+    def test_user_with_incorrect_credentials(self):
         with self.client:
             # registering a user
             res = register_user(self)
-            self.assertEqual(res.status_code, 201)
             self.assertEqual(res.status_code, 201)
 
             # loging a user with incorrect credentials

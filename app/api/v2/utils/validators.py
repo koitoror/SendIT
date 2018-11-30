@@ -153,10 +153,14 @@ def validate_update_parcel_admin_pl(parcel, data):
     # Check for empty present_location
     if data['present_location'] == '':
         data['present_location'] = parcel['present_location']
+    
+    # Check for empty present_location
+    elif parcel['present_location'] == ' ':
+        return {'warning': 'present_location is a required field'}, 400
 
     # check for valid present_location
     if data['present_location'].strip(' ').isdigit():
-        return {'warning': 'Enter non digit destination_location'}, 400
+        return {'warning': 'Enter non digit present_location'}, 400
 
     if not data["present_location"].strip():
         return {"warning": "Enter valid present_location"}, 400

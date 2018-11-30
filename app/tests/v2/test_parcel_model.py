@@ -23,7 +23,7 @@ class TestParcelModel(BaseTestCase):
         Parcel.create_parcel(
             self.cursor, "first parcel model test",
             1, "testing is very essential", "testing", "testing", 1)
-        result = Parcel.get_all(self.dict_cursor, 1)
+        result = Parcel.get_all_by_user(self.dict_cursor, 1)
         self.assertIn("first parcel model test", result[0].values())
 
 

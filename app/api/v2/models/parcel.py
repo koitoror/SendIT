@@ -71,11 +71,12 @@ class Parcel(object):
         dict_cursor.execute(query, [parcel_id])
 
     @staticmethod
-    def get_all(dict_cursor, user_id):
+    def get_all_by_user(dict_cursor, user_id):
         query_string = "SELECT * FROM parcels WHERE user_id = %s"
         dict_cursor.execute(query_string, [user_id])
         parcels = dict_cursor.fetchall()
-
+        if not parcels:
+            api.abort(404, "No parcels for user {}".format(user_id))
         results = []
         for parcel in parcels:
 
@@ -93,7 +94,7 @@ class Parcel(object):
         return results
 
     @staticmethod
-    def get_all_admin(dict_cursor):
+    def get_all_by_admin(dict_cursor):
         query_string = "SELECT * FROM parcels"
         dict_cursor.execute(query_string)
         parcels = dict_cursor.fetchall()

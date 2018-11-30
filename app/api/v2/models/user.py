@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
-
 import jwt
 from flask import current_app
 from flask_bcrypt import Bcrypt
 
+from ..utils.udto import api
 
 class User():
     """Defines the User model"""
@@ -50,6 +50,15 @@ class User():
         query_string = "SELECT * FROM users WHERE email = %s"
         dict_cursor.execute(query_string, [email])
         user = dict_cursor.fetchone()
+        return user
+
+    @staticmethod
+    def get_user_by_id(dict_cursor, id):
+        query_string = "SELECT * FROM users WHERE id = %s"
+        dict_cursor.execute(query_string, [id])
+        user = dict_cursor.fetchone()
+        if not user:
+            api.abort(404, "No user with id {}".format(id))
         return user
 
     @staticmethod

@@ -1,6 +1,6 @@
 import json
 from app.tests.v2.base import BaseTestCase
-from app.tests.v2.helpers import register_user, login_user
+from app.tests.v2.helpers import register_user, login_user, register_admin, login_admin
 
 
 class TestValidatorsCase(BaseTestCase):
@@ -312,3 +312,147 @@ class TestValidatorsCase(BaseTestCase):
             )
             self.assertEqual(rv.status_code, 400)
             self.assertIn(b"parcel_name is too long", rv.data)
+
+    def test_parcel_destination_location_length(self):
+        "test destination_location is less than 50 characters"
+        with self.client:
+            res = register_user(self)
+            self.assertTrue(res.status_code, 201)
+            res = login_user(self)
+            access_token = res.get_json()['token']
+
+            # create parcel by making a POST request
+            rv = self.client.post(
+                'api/v2/parcels',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=self.parcel
+            )
+            self.assertEqual(rv.status_code, 201)
+            self.assertIn(b"Parcel added successfully", rv.data)
+
+            # change parcel destination by making a PUT request
+            rv = self.client.put(
+                'api/v2/parcels/1/destination',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=json.dumps({
+                    "destination_location": "thelongparcel_namemorethanfiftycharacters"
+                    })
+            )
+            self.assertEqual(rv.status_code, 400)
+            self.assertIn(b"destination_location is too long", rv.data)
+
+    def test_parcel_cancel_length(self):
+        "test cancel status is less than 50 characters"
+        with self.client:
+            res = register_user(self)
+            self.assertTrue(res.status_code, 201)
+            res = login_user(self)
+            access_token = res.get_json()['token']
+
+            # create parcel by making a POST request
+            rv = self.client.post(
+                'api/v2/parcels',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=self.parcel
+            )
+            self.assertEqual(rv.status_code, 201)
+            self.assertIn(b"Parcel added successfully", rv.data)
+
+            # change parcel status by making a PUT request
+            rv = self.client.put(
+                'api/v2/parcels/1/cancel',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=json.dumps({
+                    "status": "thelongparcel_namemorethanfiftycharacters"
+                    })
+            )
+            self.assertEqual(rv.status_code, 400)
+            self.assertIn(b"status is too long", rv.data)
+ 
+    def test_parcel_present_location_length(self):
+        "test present_location is less than 50 characters"
+        with self.client:
+            res = register_user(self)
+            self.assertTrue(res.status_code, 201)
+            res = login_user(self)
+            access_token = res.get_json()['token']
+
+            # create parcel by making a POST request
+            rv = self.client.post(
+                'api/v2/parcels',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=self.parcel
+            )
+            self.assertEqual(rv.status_code, 201)
+            self.assertIn(b"Parcel added successfully", rv.data)
+
+            # change parcel destination by making a PUT request
+            register_admin(self)
+            res = login_admin(self)
+            access_token = res.get_json()['token']
+            
+            rv = self.client.put(
+                'api/v2/parcels/1/presentLocation',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=json.dumps({
+                    "present_location": "111111"
+                    })
+            )
+            self.assertEqual(rv.status_code, 400)
+            self.assertIn(b"Enter non digit present_location", rv.data)
+
+    def test_parcel_status_length(self):
+        "test status is less than 50 characters"
+        with self.client:
+            res = register_user(self)
+            self.assertTrue(res.status_code, 201)
+            res = login_user(self)
+            access_token = res.get_json()['token']
+
+            # create parcel by making a POST request
+            rv = self.client.post(
+                'api/v2/parcels',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=self.parcel
+            )
+            self.assertEqual(rv.status_code, 201)
+            self.assertIn(b"Parcel added successfully", rv.data)
+
+            # change parcel destination by making a PUT request
+            register_admin(self)
+            res = login_admin(self)
+            access_token = res.get_json()['token']
+            
+            rv = self.client.put(
+                'api/v2/parcels/1/status',
+                headers={
+                    "x-access-token": access_token,
+                    "content-type": "application/json"
+                },
+                data=json.dumps({
+                    "status": "111111"
+                    })
+            )
+            self.assertEqual(rv.status_code, 400)
+            self.assertIn(b"Enter non digit status", rv.data)
