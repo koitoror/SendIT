@@ -66,7 +66,7 @@ update_parcels_user = api.model(
 
 parcel_parser = reqparse.RequestParser()
 parcel_parser.add_argument(
-    'parcel_name', required=True, type=str, help='name should be a string')
+    'parcel_name', required=True, type=str, help='parcel_name should be a string')
 parcel_parser.add_argument('price', required=True,
                            type=int,
                            help='price should be a integer')

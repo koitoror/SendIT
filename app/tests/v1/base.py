@@ -29,16 +29,19 @@ class BaseTestCase(TestCase):
             "parcel_name": "TRAVEL BAG",
             "pickup_location": "DROP VAN",
             "destination_location": "MOMBASA",
+            "status": "IN TRANSIT",
             "price": 1000
         })
 
+        self.parcel_class = parcel_class
         self.no_parcel_name = self.parcel_class.create_parcel_test({
-            "parcel_name": " ",
             "pickup_location": "DROP VAN",
             "destination_location": "MOMBASA",
+            
             "price": 1000
         })
 
+        self.parcel_class = parcel_class
         self.no_price = self.parcel_class.create_parcel_test({
             "parcel_name": "TRAVEL BAG",
             "pickup_location": "DROP VAN",
@@ -46,6 +49,7 @@ class BaseTestCase(TestCase):
 
         })
 
+        self.parcel_class = parcel_class
         self.no_destination_location = self.parcel_class.create_parcel_test({
             "parcel_name": "TRAVEL BAG",
             "pickup_location": "DROP VAN",

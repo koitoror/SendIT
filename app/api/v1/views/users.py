@@ -1,5 +1,6 @@
 # third-party imports
 from flask_restplus import Resource
+from flask_bcrypt import Bcrypt
 
 
 # local imports
@@ -28,12 +29,22 @@ class UserRegister(Resource):
         if user:
             return {
                 'message':
-                'Username or Email exists, please login or register'},
-            400
+                'Email exists, please login or register with another email'
+            }, 400
         # check if username exists
         user = user_class.get_user_by_username(new_user["username"])
         if not user:
-            user_class.create_user(new_user)
+            hash_password = Bcrypt().generate_password_hash(
+                new_user["password"]).decode()
+            
+            new_user1 = {
+            "password": hash_password,
+            "email": new_user["email"],
+            "username": new_user["username"]
+            }
+
+            user_class.create_user(new_user1)
+            
             return {"message": "User registered successfully"}, 201
         return {"message": "User already exists. Please login."}, 202
 
@@ -55,7 +66,11 @@ class LoginUser(Resource):
 
             if user:
 
+
                 for x in user:
+                    if not Bcrypt().check_password_hash(x["password"],
+                                                        args["password"]):
+                        return {"warning": "Invalid password"}, 400
 
                     token = user_class.generate_token1(
                         x["user_id"], x["admin"])

@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 # local imports
 import jwt
 from flask import current_app
+from flask_bcrypt import Bcrypt
 
 
 class User(object):
@@ -10,12 +11,12 @@ class User(object):
 
     def __init__(self):
         """constructor method"""
+
         self.no_of_users = [{
             "user_id": 1,
-            "confirm": "johndoe123",
             "email": "johndoe@gmail.com",
             "username": "johndoe",
-            "password": "johndoe123",
+            "password": Bcrypt().generate_password_hash("johndoe123").decode(),
             "admin": True
         }]
 

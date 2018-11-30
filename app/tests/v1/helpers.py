@@ -25,3 +25,14 @@ def login_user(self):
         }),
         content_type='application/json'
     )
+
+def login_admin(self):
+    """helper function for login an admin."""
+    return self.client.post(
+        'api/v1/auth/login',
+        data=json.dumps(dict(
+            username='johndoe',
+            password='johndoe123'
+        )),
+        content_type='application/json'
+    )

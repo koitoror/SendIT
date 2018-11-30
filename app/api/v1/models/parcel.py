@@ -3,6 +3,8 @@ from datetime import datetime
 # local imports
 from ..utils.pdto import api
 from ..utils.validators import validate_parcel_data
+from app.api.v1.models.user import user_class
+
 
 
 class Parcel(object):
@@ -27,6 +29,7 @@ class Parcel(object):
     def create_parcel_test(self, data):
         """Method for creating a parcel delivery order testing"""
         data["parcel_id"] = int(len(self.no_of_parcels) + 1)
+        data["user_id"] = int(len(user_class.no_of_users) + 1)
         data["date_ordered"] = str(
             datetime.now().strftime('%b-%d-%Y : %H:%M:%S'))
 
@@ -73,10 +76,10 @@ class Parcel(object):
         parcels = [parcels for parcels in self.no_of_parcels]
         if not parcels:
             api.abort(404, "No Parcel Delivery Orders Found.")
-            for x in parcels:
-                invalid_data = validate_parcel_data(x)
-                if invalid_data:
-                    return invalid_data
+        for x in parcels:
+            invalid_data = validate_parcel_data(x)
+            if invalid_data:
+                return invalid_data
         return parcels
 
 
