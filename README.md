@@ -1,7 +1,6 @@
 # SendIT API
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![Build Status](https://travis-ci.com/koitoror/SendIT.svg?branch=develop)](https://travis-ci.com/koitoror/SendIT)
 [![Coverage Status](https://coveralls.io/repos/github/koitoror/SendIT/badge.svg?branch=develop)](https://coveralls.io/github/koitoror/SendIT?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4b0023611bae4ec48725639d631ac2da)](https://www.codacy.com/app/koitoror/SendIT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=koitoror/SendIT&amp;utm_campaign=Badge_Grade)
@@ -140,16 +139,20 @@ $ pytest --cov
 
 To test endpoints manually fire up postman and run the following endpoints
 
-### Auth Endpoints
+### Auth Endpoints Version 1
 
 **EndPoint** | **Functionality**
 --- | ---
 POST  `/api/v1/auth/signup` | Register a user
 POST  `/api/v1/auth/login` | Logs in a user
+
+### Auth Endpoints Version 2
+
+**EndPoint** | **Functionality**
 POST  `/api/v2/auth/signup` | Register a user
 POST  `/api/v2/auth/login` | Logs in a user
 
-### Endpoints
+### Endpoints Version 1
 
 **EndPoint** | **Functionality**
 --- | ---
@@ -160,6 +163,10 @@ DELETE  `/api/v1/parcels/<parcelId>` | Delete a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>` | Update a parcel delivery order by admin
 PUT  `/api/v1/parcels/<parcelId>/cancel` | Cancel a parcel delivery order by user
 GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders by user
+
+### Endpoints Version 2
+
+**EndPoint** | **Functionality**
 GET  `/api/v2/parcels` | Fetch all parcel delivery orders for all users by admin
 POST  `/api/v2/parcels` | Create a parcel delivery order by user
 GET  `/api/v2/parcels/<parcelId>` | Fetch a single parcel delivery order by user
