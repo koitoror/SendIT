@@ -128,7 +128,7 @@ $ python run.py run
 Open root path in your browser to test the endpoints. 
 You can also use Postman or any other agent to test the endpoints
 
-## Test
+## API Test
 
 To run your tests use
 
@@ -167,6 +167,7 @@ GET  `/api/v1/users/<userId>/parcels` | Fetch all parcel delivery orders by user
 ### Endpoints Version 2
 
 **EndPoint** | **Functionality**
+--- | ---
 GET  `/api/v2/parcels` | Fetch all parcel delivery orders for all users by admin
 POST  `/api/v2/parcels` | Create a parcel delivery order by user
 GET  `/api/v2/parcels/<parcelId>` | Fetch a single parcel delivery order by user
@@ -187,3 +188,49 @@ http://127.0.0.1:5000/
 Once app server is running you can view *VERSION 1* on HEROKU the [API documentation here](https://send-it-ke.herokuapp.com)
 
 Once app server is running you can view *VERSION 2* on HEROKU the [API documentation here](https://send-it-ke-v2.herokuapp.com)
+
+
+## How to Access & Run Tests for FRONTEND
+Clone the repository into your local environment
+```
+$ git clone https://github.com/koitoror/SendIT.git
+```
+
+Switch to the GH-PAGES branch
+```
+#!/bin/bash
+$ git checkout gh-pages
+```
+
+Change directory into SendIT
+```
+cd SendIT/UI
+```
+
+## Built With
+  * HTML5
+  * CSS3
+  * Vanilla JS
+Run `index.html` file in your browser
+
+## UI link for GH-PAGES branch
+
+```
+https://koitoror.github.io/SendIT/UI/
+```
+
+* Install node dependecies to run tests 
+```
+npm install
+```
+
+* Run tests 
+```
+npm test
+```
+
+* Access the hosted UI [here](https://koitoror.github.io/SendIT/UI)
+=======
+
+# Website
+https://koitoror.github.io/SendIT/UI/
