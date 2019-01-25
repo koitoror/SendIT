@@ -5,8 +5,8 @@ from flask_bcrypt import Bcrypt
 # local imports
 from app.database import Database
 from ..models.user import User
-from ..utils.udto import api, register_parser, login_model, login_parser
-from ..utils.udto import register_model
+from ..utils.udto import api, register_parser, login_parser
+from ..utils.udto import register_model, login_model
 from ..utils.validators import validate_user_data
 
 
@@ -45,7 +45,7 @@ class UserRegister(Resource):
             User.create_user(
                 cursor, new_user["username"], new_user["email"], hash_password)
             return {"message": "User registered successfully"}, 201
-        return {"message": "User already exists. Please login."}, 202
+        return {"warning": "User already exists. Please login."}, 202
 
 
 @api.route("/login")
@@ -70,7 +70,9 @@ class LoginUser(Resource):
                 token = User.generate_token(user["id"], user["admin"])
 
                 return {"message": "Logged in successfully",
-                        "token": token.decode("UTF-8")}
+                        "user_id": user["id"],
+                        "admin": user["admin"],
+                        "token": token.decode("UTF-8")},
             return {"warning": "No user found. Please sign up"}, 401
         return {"warning": "'username' and 'password' are required fields"},
         400

@@ -1,9 +1,10 @@
-# import os
+import os
 # from run import app
 
 import psycopg2
 import psycopg2.extras
 # import urllib.parse as urlparse
+from flask_bcrypt import Bcrypt
 
 
 class Database(object):
@@ -20,21 +21,45 @@ class Database(object):
             cursor_factory=psycopg2.extras.DictCursor)
 
     def connect(self, testing=None):
-        # # db_uri = os.getenv("TEST_DB_URL") if testing else os.getenv("DATABASE_URL")
-        # db_uri = os.getenv("DATABASE_URL")
+        # db_uri = os.getenv("TEST_DB_URL") if testing else os.getenv("DATABASE_URL")
+
+        # if testing:
+        #     db_uri = os.getenv("TEST_DB_URL")
+        # else:
+        #     db_uri = os.getenv("DATABASE_URL")
+
+        # db_uri = os.getenv("TEST_DB_URL")
+        # db_uri = os.getenv("DATABASE_URL_1")
+        # db_uri = DATABASE_URL_1
+
+        db_uri = os.getenv("DATABASE_URL")
         # result = urlparse.urlparse(db_uri)
         # host = result.hostname
         # role = result.username
         # pwd = result.password
         # database = result.path[1:]
 
-        return psycopg2.connect(
-            database="dfdao6n5c3ldv0",
-            user="lvyhayqrcwomlj",
-            password="10030c356eb6d7f42f498a9b83cc66e050056e840e8164a0ff3ba99376612ae7",
-            host="ec2-54-197-249-140.compute-1.amazonaws.com",
-            port="5432"
-        )
+        # DATABASE_URL = 'dbname=send_it password=123456 host=localhost port=5432 user=postgres'
+
+        # return psycopg2.connect(
+        #     # database="dfdao6n5c3ldv0",
+        #     # user="lvyhayqrcwomlj",
+        #     # password="10030c356eb6d7f42f498a9b83cc66e050056e840e8164a0ff3ba99376612ae7",
+        #     # host="ec2-54-197-249-140.compute-1.amazonaws.com",
+        #     # port="5432"
+
+        #     dbname="send_it",
+        #     user="postgres",
+        #     password="123456",
+        #     host="localhost",
+        #     port="5432"
+        # )
+
+        # return psycopg2.connect(DATABASE_URL)
+
+        return psycopg2.connect(db_uri)
+
+
 
     def create_tables(self):
         tables = (
@@ -76,6 +101,13 @@ class Database(object):
         for table in tables:
             self.cursor.execute(table)
 
+
+    def add_admin(self):
+        new_admin = ("adm", "adm@gmail.com", Bcrypt().generate_password_hash("123456").decode(), "True")
+        add_admin_user_command = "INSERT INTO users(username, email, password, admin) VALUES('" + new_admin[0] + "','" + new_admin[1] + "','" + new_admin[2] + "','" + new_admin[3] + "')"
+        self.cursor.execute(add_admin_user_command)
+
+
     def drop_all(self):
         tables = (
             """
@@ -83,6 +115,9 @@ class Database(object):
             """,
             """
             DROP TABLE IF EXISTS parcels CASCADE
+            """,
+            """
+            DROP TABLE IF EXISTS blacklist CASCADE
             """
         )
         for table in tables:
@@ -91,6 +126,7 @@ class Database(object):
 
 if __name__ == "__main__":
     db = Database()
-    # db.connect_db()
+    # db.connect_db()  
     db.create_tables()
+    db.add_admin()
     # db.drop_all()

@@ -155,7 +155,7 @@ def validate_update_parcel_admin_pl(parcel, data):
         data['present_location'] = parcel['present_location']
     
     # Check for empty present_location
-    elif parcel['present_location'] == ' ':
+    elif data['present_location'] == ' ':
         return {'warning': 'present_location is a required field'}, 400
 
     # check for valid present_location

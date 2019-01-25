@@ -1,9 +1,11 @@
 # third-party imports
 from flask_restplus import Resource
-# from flask_mail import Message, Mail
-# mail = Mail()
+from flask_mail import Message, Mail
+mail = Mail()
 from datetime import datetime
 
+import os
+# from flask import current_app
 
 # local imports
 from ..models.parcel import Parcel
@@ -37,8 +39,8 @@ class ParcelList(Resource):
 
     @api.expect(post_parcel)
     @api.doc('creates a parcel delivery order', security='apikey')
-    @api.response(201, "Created")
     @api.header('x-access-token', type=str, description='access token')
+    @api.response(201, "Created")
     @user_required
     def post(user_id, self):
         """Creates a new Parcel delivery order."""
@@ -60,9 +62,10 @@ class ParcelList(Resource):
         return {"message": "Parcel added successfully"}, 201
 
     @api.doc("list_parcels", security='apikey')
+    @api.header('x-access-token', type=str, description='access token')
+    # @api.marshal_with(parcel, envelope="parcels")
     @api.response(404, "Parcels Not Found")
     @api.response(401, "Unauthorized to view these parcels")
-    @api.header('x-access-token', type=str, description='access token')
     @admin_required
     def get(self):
         """List all Parcels"""
@@ -73,17 +76,17 @@ class ParcelList(Resource):
         return parcels
 
 
-@api.response(401, "Unauthorized to view this parcel")
 @api.route("/parcels/<int:parcel_id>")
 @api.param("parcel_id", "parcel identifier")
+@api.response(401, "Unauthorized to view this parcel")
 @api.response(404, 'Parcel order not found')
 class ParcelClass(Resource):
     """Displays a single parcel item and lets you delete them."""
 
-    @api.marshal_with(parcel)
     @api.doc('get one parcel', security='apikey')
-    @user_required
     @api.header('x-access-token', type=str, description='access token')
+    # @api.marshal_with(parcel)
+    @user_required
     def get(user_id, self, parcel_id):
         """Displays a single Parcel."""
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
@@ -92,10 +95,10 @@ class ParcelClass(Resource):
         return parcel
 
     @api.doc('deletes a parcel', security='apikey')
-    @api.response(204, 'Parcel Deleted')
-    @user_required
-    @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
+    @api.response(204, 'Parcel Deleted')
+    @api.response(401, "Unauthorized to delete this parcel")
+    @user_required
     def delete(user_id, self, parcel_id):
         """Deletes a single Parcel."""
 
@@ -107,13 +110,13 @@ class ParcelClass(Resource):
 @api.param("id", "user identifier")
 @api.response(404, 'Parcel order not found')
 class UserParcels(Resource):
-    """Displays a single parcel item and lets you delete them."""
+    """Displays a single parcel item by user."""
 
     @api.doc("list_all_parcel_delivery_orders_by_user", security='apikey')
+    @api.header('x-access-token', type=str, description='access token')
     @api.response(404, "Parcel delivery orders Not Found for user")
     @api.response(401, "Unauthorized to view these parcels")
     @user_required
-    @api.header('x-access-token', type=str, description='access token')
     def get(user_id, self, id):
         """Fetch/list all parcel delivery orders by a specific/single user"""
         user = User.get_user_by_id(dict_cursor, id)
@@ -131,11 +134,11 @@ class UserParcels(Resource):
 class UserCancel(Resource):
     """Displays a single parcel deliver order and lets you cancel order."""
 
-    @api.doc('updates/cancels a parcel delivery order', security='apikey')
     @api.expect(update_parcels_user_cancel)
-    @user_required
-    @api.response(401, "Unauthorized to edit/cancel this parcel")
+    @api.doc('updates/cancels a parcel delivery order', security='apikey')
     @api.header('x-access-token', type=str, description='access token')
+    @api.response(401, "Unauthorized to edit/cancel this parcel")
+    @user_required
     def put(user_id, self, parcel_id):
         """Cancels a single Parcel delivery order by user."""
 
@@ -154,7 +157,10 @@ class UserCancel(Resource):
         Parcel.modify_parcel_user_cancel(
             dict_cursor, cursor, args["status"],
             date_modified, parcel_id, user_id)
-        return {"message": "Order canceled successfully", "parcel": parcel}
+        return {"message": "Order canceled successfully"}
+
+        # return {"message": "Order canceled successfully", "parcel": parcel}
+       
 
 
 @api.route("/parcels/<int:parcel_id>/destination")
@@ -163,12 +169,12 @@ class UserCancel(Resource):
 class UserDestination(Resource):
     """Displays a parcel deliver order and lets you change the destination."""
 
+    @api.expect(update_parcels_user_destination)
     @api.doc('updates destination of a parcel delivery order',
              security='apikey')
-    @api.expect(update_parcels_user_destination)
-    @user_required
-    @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
+    @api.response(401, "Unauthorized to edit this parcel")
+    @user_required
     def put(user_id, self, parcel_id):
         """Changes the destination of a Parcel delivery order by user."""
 
@@ -185,9 +191,10 @@ class UserDestination(Resource):
         Parcel.modify_parcel_user_destination(
             dict_cursor, cursor, args["destination_location"],
             parcel_id, user_id)
-        return {"message": "Destination updated successfully",
-                "parcel": parcel}
+        return {"message": "Destination updated successfully"}
 
+        # return {"message": "Destination updated successfully",
+        #         "parcel": parcel}
 
 @api.route("/parcels/<int:parcel_id>/presentLocation")
 @api.param("parcel_id", "parcel identifier")
@@ -195,19 +202,23 @@ class UserDestination(Resource):
 class AdminPresentLocation(Resource):
     """Displays parcel deliver order and lets admin change present location."""
 
+    @api.expect(update_parcels_admin_pl)
     @api.doc('updates present location of a parcel delivery order',
              security='apikey')
-    @api.expect(update_parcels_admin_pl)
-    @admin_required
-    @api.response(401, "Unauthorized to edit this parcel")
     @api.header('x-access-token', type=str, description='access token')
+    @api.response(401, "Unauthorized to edit this parcel")
+    @admin_required
     def put(self, parcel_id):
         """Changes the present location of a Parcel delivery order by admin."""
 
         args = update_parcel_parsers_admin_pl.parse_args()
+
         present_location = args["present_location"]
+
         parcel = {"present_location": present_location}
+
         parcel = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
+        user_id = parcel["user_id"]
 
         invalid_data = validate_update_parcel_admin_pl(parcel, args)
 
@@ -215,16 +226,26 @@ class AdminPresentLocation(Resource):
             return invalid_data
 
         Parcel.modify_parcel_admin_pl(
-            dict_cursor, cursor, args["present_location"], parcel_id)
+            dict_cursor, cursor, present_location, parcel_id)
 
-        # msg = Message("Parcel Order !!! Present Location Changed",
-        #           sender="dan@send-it-ke.com",
-        #         #   recipients=args["email"])
-        #           recipients=["recipient@example.com"])
-        # mail.send(msg)
+        user_email = User.get_user_email(dict_cursor, user_id)
+        email = user_email[0]
+        # print(email)
+        msg = Message("Parcel Order !!! Present Location Changed",
+              sender = os.getenv("MAIL_USERNAME"),
+                # sender = current_app.config.get("MAIL_USERNAME"),
+                # subject='SendIT Notification',
+                # body='Present Location Changed. Log in to track your parcel. Thanks for choosing SendIT to deliver your parcel',
+                # recipients = email)
+                # with app.open_resource("static/images/image.jpg") as fp:
+                #     msg.attach("images.jpg", "image/jpg", fp.read())
+              recipients = ["email"])
+        mail.send(msg)
 
-        return {"message": "Present location updated successfully",
-                "parcel": parcel}
+        return {"message": "Present location updated successfully and email notification sent"}
+
+        # return {"message": "Present location updated successfully and notification sent",
+        # "parcel": parcel}
 
 
 @api.route("/parcels/<int:parcel_id>/status")
@@ -233,11 +254,11 @@ class AdminPresentLocation(Resource):
 class AdminStatus(Resource):
     """Displays a single parcel deliver order and lets admin change status."""
 
-    @api.doc('updates status of a parcel delivery order', security='apikey')
     @api.expect(update_parcels_admin_status)
-    @admin_required
-    @api.response(401, "Unauthorized to edit this parcel")
+    @api.doc('updates status of a parcel delivery order', security='apikey')
     @api.header('x-access-token', type=str, description='access token')
+    @api.response(401, "Unauthorized to edit this parcel")
+    @admin_required
     def put(self, parcel_id):
         """Changes the status of a single Parcel delivery order by admin."""
 
@@ -252,4 +273,7 @@ class AdminStatus(Resource):
 
         Parcel.modify_parcel_admin_status(
             dict_cursor, cursor, args["status"], parcel_id)
-        return {"message": "Status updated successfully", "parcel": parcel}
+        return {"message": "Status updated successfully"}
+        
+        # return {"message": "Status updated successfully", "parcel": parcel}
+
