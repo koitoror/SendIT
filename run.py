@@ -16,6 +16,7 @@ EMAIL_REGEX = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
 from flask_bcrypt import Bcrypt
 from flask_script import Manager # controller class for handling commands
 from flask_script import prompt, prompt_pass
+from flask_cors import CORS
 
 
 # local imports
@@ -25,6 +26,7 @@ from app.api.v2.models.user import User
 
 # application development instance
 app = create_app(config_name=os.getenv("FLASK_CONFIG"))
+CORS(app)
 
 # initializing the manager object
 manager = Manager(app)
