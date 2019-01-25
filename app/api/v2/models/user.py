@@ -53,6 +53,15 @@ class User():
         return user
 
     @staticmethod
+    def get_user_email(dict_cursor, id):
+        query_string = "SELECT email FROM users WHERE id = %s"
+        dict_cursor.execute(query_string, [id])
+        email = dict_cursor.fetchone()
+        if not email:
+            api.abort(404, "No email with id {}".format(id))
+        return email
+
+    @staticmethod
     def get_user_by_id(dict_cursor, id):
         query_string = "SELECT * FROM users WHERE id = %s"
         dict_cursor.execute(query_string, [id])
