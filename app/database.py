@@ -3,7 +3,6 @@ import os
 
 import psycopg2
 import psycopg2.extras
-# import urllib.parse as urlparse
 from flask_bcrypt import Bcrypt
 
 
@@ -28,34 +27,7 @@ class Database(object):
         # else:
         #     db_uri = os.getenv("DATABASE_URL")
 
-        # db_uri = os.getenv("TEST_DB_URL")
-        # db_uri = os.getenv("DATABASE_URL_1")
-        # db_uri = DATABASE_URL_1
-
         db_uri = os.getenv("DATABASE_URL")
-        # result = urlparse.urlparse(db_uri)
-        # host = result.hostname
-        # role = result.username
-        # pwd = result.password
-        # database = result.path[1:]
-
-        # DATABASE_URL = 'dbname=send_it password=123456 host=localhost port=5432 user=postgres'
-
-        # return psycopg2.connect(
-        #     # database="dfdao6n5c3ldv0",
-        #     # user="lvyhayqrcwomlj",
-        #     # password="10030c356eb6d7f42f498a9b83cc66e050056e840e8164a0ff3ba99376612ae7",
-        #     # host="ec2-54-197-249-140.compute-1.amazonaws.com",
-        #     # port="5432"
-
-        #     dbname="send_it",
-        #     user="postgres",
-        #     password="123456",
-        #     host="localhost",
-        #     port="5432"
-        # )
-
-        # return psycopg2.connect(DATABASE_URL)
 
         return psycopg2.connect(db_uri)
 
