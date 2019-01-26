@@ -40,7 +40,7 @@ class Parcel(object):
             "price": parcel["price"],
             "status": parcel["status"],
             "user_id": parcel["user_id"],
-            "date_ordered": datetime.strptime(parcel["date_ordered"], '%Y-%m-%d %H:%M:%S.%f+03:00').strftime('%d-%b-%Y : %H:%M:%S')
+            "date_ordered": datetime.strptime(parcel["date_ordered"], '%Y-%m-%d %H:%M:%S.%f+00:00').strftime('%d-%b-%Y : %H:%M:%S')
         }
 
         return obj
