@@ -10,7 +10,7 @@ body {
 .index {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  background-image: url("../images/delivery_man.png");
+  background-image: url(images/delivery_man.png);
   background-repeat: no-repeat, repeat;
 
 }

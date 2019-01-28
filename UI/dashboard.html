@@ -1,182 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang= "en">
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SendIT :: Parcel Delivery Service</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SendIT :: Parcel Delivery Service</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
+    
 
-    <!-- Load icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <!-- Load icon library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    </head>
 
-</head>
-
-<body>
-
-    <div class="header">
-        <a href="index.html" class="logo">SendIT</a>
-        <div class="header-right">
-            <a class="active" href="dashboard.html">Admin Dashboard</a>
-            <a href="index.html">Log Out</a>
-
-
-        </div>
-    </div>
+    <body>
+        <header class="header">
+            <a href="index.html" class="logo">SendIT</a>
+            <div class="header-right">
+                <a class="active" href="dashboard.html">Admin Dashboard</a>
+                <a onclick="localStorage.clear(); window.location.href = 'index.html';">Logout</a>
+                <!-- <a href="index.html">Log Out</a> -->
 
 
-    <section id="dashboard">
-        <h2>Welcome, Admin (User)</h2>
-        <p><em>SendIT</em> - the fastest web app for parcel delivery's</p>
-        <h3>Dashboard, <small>Daniel Kamar</small></h3>
-        <div class="container">
-            
-            <div id="avatar">
-                <img src="static/images/admin.png" alt="Image">
             </div>
-            <br><br>
-            <hr>      
-            
-        </div>
-        
-    </section>
+        </header>
 
-    <section>
-        <div class="container1">
+        <section id="dashboard">
+            <h2>Welcome, <small style="color:blue" id="username"></small></h2>
+            <p><em>SendIT</em> - the fastest web app for parcel delivery's</p>
+            <h3>Dashboard, <small id="admin">Admin</small></h3>
+            <div class="container">                
+                <div id="avatar">
+                    <img src="static/images/admin.png" alt="Image">
+                </div>
+                <br><br>
+                <hr>
 
-            <legend>All Parcel Delivery Orders</legend>
-            
-            <div>
-                <table class="dashboard">
-                        <tr class="table">
-                        
-                            <th>Username</th>
-                            <th>Order ID</th>
-                            <th>Parcel Name</th>         
-                            <th>Price</th>
-                            <th>Date Ordered</th>
-                            <th>Order Details</th>
-                            <th>Order Status</th>
-                            <!-- <th>Cancel Order</th> -->
-                            <th>PickUp Location</th>    
-                            <th>Present Location</th>
-                            <th>Destination</th>
-                            <th>Date Modified</th>
-                        
-                        </tr>
-                        <tr>
-                        
-                            <td>donaldjohn</td>
-                            <td>4329571081</td>
-                            <td>JUNK</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td class="text-center"><a href="#"><i class="fa fa-eye"></i></a></td>
-                            <td>
-                            <select id="news2">
-                                <!-- <option selected value="ClickHere"></option> -->
-                                <option value="1">    IN TRANSIT   </option>
-                                <option selected value="2">    DELIVERED    </option>
-                                <option value="3">    UNDELIVERED  </option>
-                                <option value="4">    CANCELED     </option>
-                            </select>
-                            </td>
-                            <!-- <td><a href="#"><i class="fa fa-close"></i></a></td>     -->
-                            <td>MAIN WAREHOUSE</td>
-                            <td class="input-wrapper"><input type="text" name="Present" value="CITY OFFICE"></td>
-                            <td class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                        </tr>
-                        <tr>
-                        
-                            <td>donaldjohn</td>
-                            <td>4329571082</td>
-                            <td>LUGGAGE</td>    
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td class="text-center"><a href="#"><i class="fa fa-eye"></i></a></td>
-                            <td>
-                            <select id="news2">
-                                <!-- <option selected value="ClickHere"></option> -->
-                                <option selected value="1">    IN TRANSIT   </option>
-                                <option value="2">    DELIVERED    </option>
-                                <option value="3">    UNDELIVERED  </option>
-                                <option value="4">    CANCELED     </option>
-                            </select>
-                            </td>
-                            <!-- <td><a href="#"><i class="fa fa-close"></i></a></td>         -->
-                            <td>MAIN WAREHOUSE</td>
-                            <td class="input-wrapper"><input type="text" name="Present" value="CITY OFFICE"></td>
-                            <td class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                        </tr>
-                        <tr>
-                        
-                            <td>donaldjohn</td>
-                            <td>4329571083</td>
-                            <td>BELONGINGS</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td class="text-center"><a href="#"><i class="fa fa-eye"></i></a></td>
-                            <td>
-                            <select id="news2">
-                                <!-- <option selected value="ClickHere"></option> -->
-                                <option selected value="1">    IN TRANSIT   </option>
-                                <option value="2">    DELIVERED    </option>
-                                <option value="3">    UNDELIVERED  </option>
-                                <option value="4">    CANCELED     </option>
-                            </select>
-                            </td>
-                            <!-- <td><a href="#"><i class="fa fa-close"></i></a></td>         -->
-                            <td>MAIN WAREHOUSE</td>
-                            <td class="input-wrapper"><input type="text" name="Present" value="CITY OFFICE"></td>
-                            <td class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                        </tr>
-                        <tr>
-                        
-                            <td>donaldjohn</td>
-                            <td>4329571084</td>
-                            <td>ITEMS</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td class="text-center"><a href="#"><i class="fa fa-eye"></i></a></td>
-                            <td>
-                            <select id="news2">
-                                <!-- <option selected value="ClickHere"></option> -->
-                                <option selected value="1">    IN TRANSIT   </option>
-                                <option value="2">    DELIVERED    </option>
-                                <option value="3">    UNDELIVERED  </option>
-                                <option value="4">    CANCELED     </option>
-                            </select>
-                            </td>
-                            <!-- <td><a href="#"><i class="fa fa-close"></i></a></td>         -->
-                            <td>MAIN WAREHOUSE</td>
-                            <td class="input-wrapper"><input type="text" name="Present" value="CITY OFFICE"></td>
-                            <td class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                        </tr>
-                </table>
+
+
+
+                <div>
+                    <p><b>No. of Parcels Orders: </b><span id="parcels"></span></p>
+                </div>                      
+
+            </div>            
+        </section>
+
+        <section>
+            <div class="container1">
+
+                <legend>All Parcel Delivery Orders</legend>
+
+                <div id="view"></div>
+                <!-- <button id="showParcels" class="button bg-dark">Show Parcels</button> -->
+                <div id="info"></div>
+                <div id="info1"></div>
+
+                <table id="table" class="dashboard"></table>
+
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="text-center bg-dark">
-        <p>
-            SendIT, Copyright <sup>&copy;</sup> 2018
-        </p>
-    </footer>
 
-    <script src="static/js/main.js"></script>
+        <footer class="text-center bg-dark">
+            <p>
+                SendIT, Copyright <sup>&copy;</sup> 2018
+            </p>
+        </footer>
 
-</body>
+        <!-- <script src="./static/dist/js/dashboard.js"></script> -->
+        <script src="./static/dist/dashboard.min.js"></script>
+        <script src="./static/js/main.js"></script>
+        <script src="static/dist/app.min.js"></script>
+
+    </body>
 
 </html>

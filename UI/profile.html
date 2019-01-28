@@ -16,22 +16,21 @@
 
 <body>
 
-    <div class="header">
+    <header class="header">
         <a href="index.html" class="logo">SendIT</a>
         <div class="header-right">
             <a href="order.html">New Order</a>
             <a class="active" href="profile.html">User Profile</a>
-            <a href="index.html">Log Out</a>
-
-
+            <a onclick="localStorage.clear(); window.location.href = 'index.html';">Logout</a>
+            <!-- <a href="index.html">Log Out</a> -->
         </div>
-    </div>
+    </header>
 
 
     <section id="dashboard">
-        <h2>Welcome, Non-Admin(User)</h2>
+        <h2>Welcome, <small style="color:blue" id="username"></small></h2>
         <p><em>SendIT</em> - the fastest web-app for parcel delivery's</p>
-        <h3>Dashboard, <small>Donald John</small></h3>
+        <h3>Dashboard, <small id="admin">Non-Admin(User)</small></h3>
         <div class="container">
             <div id="avatar">
                 <img src="static/images/attendant-avatar.jpg" alt="Image">
@@ -42,94 +41,29 @@
                 <p><b>Delivered </b>(1)</p>
                 <p><b>In-Transit </b>(3)</p>
             </div>
+            <div>
+                <p><b>No. of Parcels Orders: </b><span id="parcels"></span></p>
+            </div>
             
         </div>
     </section>
 
     <section>
-        <div class="container">
+        <div class="container1">
             <div>
                 <a href="order.html" class="button bg-dark float-right">Place Order</a>
             </div>
             <legend>All My Parcel Delivery Orders</legend>
-            <div>
-                <table class="dashboard">
-                        <tr class="table">
+            
+            <div id="view"></div>
+            <!-- <button id="showEntries" class="button bg-dark">Show Entries</button> -->
+            <div id="info"></div>
+            <div id="info1"></div>
 
-                            <th>Order ID</th>
-                            <th>Parcel Name</th>      
-                            <th>Price</th>
-                            <th>Date Ordered</th>
-                            <th>Order Status</th>
-                            <th>Cancel Order</th>    
-                            <th>PickUp Location</th>    
-                            <th>Present Location</th>
-                            <th>Destination</th>
-                            <th>Date Modified</th>
-                        
-                            </tr>
-                            <tr>
-                        
-                            <td>4329571081</td>
-                            <td>JUNK</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td>DELIVERED</td>
-                            <td></td>
-                            <td>MAIN WAREHOUSE</td>
-                            <td>CITY OFFICE DISPATCHES</td>
-                            <td>MOMBASA</td>
-                            <td>01-11-2018</td>
-                        
-                        
-                            </tr>
-                            <tr>
-                        
-                            <td>4329571082</td>
-                            <td>LUGGAGE</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td>IN TRANSIT</td>  
-                            <td class="text-center"><a href="profile.html"><i class="fa fa-close"></i></a></td>      
-                            <td>MAIN WAREHOUSE</td>
-                            <td>CITY OFFICE DISPATCHES</td>
-                            <td class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                            
-                            </tr>
-                            <tr>
-                        
-                            <td>4329571083</td>
-                            <td>BELONGINGS</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td>IN TRANSIT</td>
-                            <td class="text-center"><a href="profile.html"><i class="fa fa-close"></i></a></td>        
-                            <td>MAIN WAREHOUSE</td>
-                            <td>CITY OFFICE DISPATCHES</td>
-                            <td  class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                            
-                            </tr>
-                            <tr>
-                        
-                            <td>4329571084</td>
-                            <td>ITEMS</td>
-                            <td>$100</td>
-                            <td>01-11-2018</td>
-                            <td>IN TRANSIT</td>
-                            <td class="text-center"><a href="profile.html"><i class="fa fa-close"></i></a></td>        
-                            <td>MAIN WAREHOUSE</td>
-                            <td>CITY OFFICE DISPATCHES</td>
-                            <td class="input-wrapper"><input type="text" name="Destination" value="MOMBASA"></td>
-                            <td>01-11-2018</td>
-                        
-                            
-                            </tr>
-                </table>
-            </div>
+
+            <table id="table" class="dashboard"></table>
+
+
         </div>
     </section>
     
@@ -139,7 +73,8 @@
         </p>
     </footer>
 
-    <script src="static/js/main.js"></script>
+    <script src="./static/dist/profile.min.js"></script>
+    <!-- <script src="static/js/main.js"></script> -->
 
 </body>
 

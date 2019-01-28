@@ -46,6 +46,9 @@ Change directory into SendIT
 cd SendIT/UI
 ```
 
+- Install node dependecies to run tests `npm install`
+- Run tests `npm test`
+
 Run `index.html` file in your browser
 
 # UI link for GH-PAGES
@@ -53,3 +56,11 @@ Run `index.html` file in your browser
 ```
 https://koitoror.github.io/SendIT/UI/
 ```
+
+**How should this be manually tested?**
+The tests are written in jest testing framework and assetion library. To test
+
+- `git clone https://github.com/koitoror/SendIT.git`
+- `cd SendIT`
+- Install node dependecies to run tests `npm install`
+- Run tests `npm test`
