@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4b0023611bae4ec48725639d631ac2da)](https://www.codacy.com/app/koitoror/SendIT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=koitoror/SendIT&amp;utm_campaign=Badge_Grade)
 
 # SendIT
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT provides courier quotes based on weight categories. .
@@ -64,3 +65,9 @@ The tests are written in jest testing framework and assetion library. To test
 - `cd SendIT`
 - Install node dependecies to run tests `npm install`
 - Run tests `npm test`
+
+## User's Data
+**Default Admin Login Details**(SendIt)
+
+Username - adm
+Password - 123456
