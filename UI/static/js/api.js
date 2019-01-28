@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
-// const uri = 'https://send-it-ke-v2.herokuapp.com/api/v2';
-const uri = 'http://127.0.0.1:5000/api/v2'
+const uri = 'https://send-it-ke-v2.herokuapp.com/api/v2'
+// const uri = 'http://127.0.0.1:5000/api/v2'
 
 export const api = {
     post(endpoint, data) {
@@ -9,11 +9,9 @@ export const api = {
             method: 'POST',
             body: JSON.stringify(data),
             mode: 'cors',
-            // mode: 'no-cors',
             headers: {
                 "x-access-token": localStorage.getItem("token"),
                 "content-type": "application/json",
-                // 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Origin': '<origin> | *',
                 'Access-Control-Allow-Credentials': 'true'
             }
@@ -25,11 +23,9 @@ export const api = {
             method: 'PUT',
             body: JSON.stringify(data),
             mode: 'cors',
-            // mode: 'no-cors',
             headers: {
                 "x-access-token": localStorage.getItem("token"),
                 "content-type": "application/json",
-                // 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Origin': '<origin> | *',
                 'Access-Control-Allow-Credentials': 'true'
             }
@@ -40,11 +36,9 @@ export const api = {
         return fetch(`${uri}${endpoint}`, {
             method: 'GET',
             mode: 'cors',
-            // mode: 'no-cors',
             headers: {
                 "x-access-token": localStorage.getItem("token"),
                 "content-type": "application/json",
-                // 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Origin': '<origin> | *',
                 'Access-Control-Allow-Credentials': 'true'
             }
@@ -55,11 +49,9 @@ export const api = {
         return fetch(`${uri}${endpoint}`, {
             method: 'DELETE',
             mode: 'cors',
-            // mode: 'no-cors',
             headers: {
                 "x-access-token": localStorage.getItem("token"),
                 "content-type": "application/json",
-                // 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Origin': '<origin> | *',
                 'Access-Control-Allow-Credentials': 'true'
             }

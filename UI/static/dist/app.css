@@ -10,7 +10,7 @@ body {
 .index {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  background-image: url("../images/delivery_man.png");
+  background-image: url(images/delivery_man.png);
   background-repeat: no-repeat, repeat;
 
 }
@@ -101,6 +101,51 @@ h2 {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* alerts */
+
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+.list-group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 #customers {
@@ -187,7 +232,7 @@ h2 {
 }
 
 .dashboard th, td {
-  padding: 8px;
+  padding: 4px;
   text-align: left;
   border-bottom: 1px solid #ddd;
   font-size: 12px;

@@ -7,7 +7,7 @@
     <title>SendIT :: Parcel Delivery Service</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
     <!-- Load icon library -->
@@ -16,32 +16,31 @@
 
 <body>
 
-    <div class="header">
+    <header class="header">
         <a href="index.html" class="logo">SendIT</a>
         <div class="header-right">
             <a class="active" href="order.html">New Order</a>
             <a href="profile.html">User Profile</a>
-            <a href="index.html">Log Out</a>
-
-
+            <!-- <a href="index.html">Log Out</a> -->
+            <a onclick="localStorage.clear(); window.location.href = 'index.html';">Logout</a>
         </div>
-    </div>
-
-    <div>
-
-        <h2>Welcome, Non-Admin(User)</h2>
-        <p><em>SendIT</em> - the fastest web-app for parcel delivery's</p>
-
-    </div>
+        
+    </header>
 
     <section id="dashboard">
+        <h2>Welcome, <small style="color:blue" id="username"></small></h2>
+        <p><em>SendIT</em> - the fastest web-app for parcel delivery's</p>
+        <h3>Dashboard, <small>Non-Admin(User)</small></h3>
         <div class="container">
             <div id="avatar">
                 <img src="static/images/attendant-avatar.jpg" alt="Image">
             </div>
-            <h2>Dashboard, <small>Donald John</small></h2>
-
+            <br><br>
             <hr>
+            <!-- <div class="float-right">
+                <p><b>Delivered </b>(1)</p>
+                <p><b>In-Transit </b>(3)</p>
+            </div> -->
             
         </div>
     </section>
@@ -49,38 +48,52 @@
     <section>
         <div class="container">
             <legend>Place New Parcel Delivery Order</legend>
-            <form class="myForm">
+                <form class="myForm" id="myForm">
                     <fieldset>
+
+                        <div id="success" class="alert alert-success hide"></div>
+                        <div id="warning" class="alert alert-warning hide"></div>     
                         <div class="form-group">
-                            <!-- Username -->
+                            <!-- Parcel-Name -->
                             <label for="parcel-name">Parcel-Name</label>
                             <input type="text" id="parcel-name" class="form-control" rows="1">
-                        </div>
-                    
+                        </div>                
                         <div class="form-group">
-                            <!-- E-mail -->
+                            <!-- Order-Price -->
                             <label for="order-price">Order-Price</label>
-                            <input type="number" min="0" class="form-control">
+                            <input type="number" min="0" id="price" class="form-control">
                         </div>
 
                         <div class="form-group">
-                                <!-- Username -->
-                                <label for="PickUp">PickUp Location</label>
-                                <input type="text" value="MAIN WAREHOUSE" id="PickUp" class="form-control">
+                        <!-- PickUp Location -->
+                        <label for="PickUp">PickUp Location</label>
+                        <input type="text" value="MAIN OFFICE" id="pickup" class="form-control">
                         </div>
 
                         <div class="form-group">
-                                <!-- Username -->
-                                <label for="parcel-name">Destination-Location</label>
-                                <input type="text" id="parcel-name" class="form-control">
+                                <!-- Destination-Location -->
+                                <label for="destination">Destination-Location</label>
+                                <input type="text" id="destination" class="form-control">
                         </div>
 
-                        <!-- <div class="form-group"> -->
+                        <div class="form-group">
+                                <!-- Status -->
+                                <label for="status">Status</label>
+                                <select class="form-control">
+                                    <option selected id="status">    IN TRANSIT   </option>
+                                    <option>    DELIVERED    </option>
+                                    <option>    UNDELIVERED  </option>
+                                    <option>    CANCELED     </option>
+                                </select>
+                                <!-- <input type="text" id="status" class="form-control"> -->
+                        </div>
+
+                        <div class="form-group">
                                 <!-- Button -->
-                                <!-- <button class="button bg-dark">Place Order </button>
-                        </div> -->
+                                <button class="button bg-dark" type="submit">Place Order </button>
+                        </div>
                         <div>
-                            <a href="profile.html" class="button bg-dark">Place Order</a>
+                            <a href="profile.html" class="buttonz bg-dark">Place Order</a>
                         </div>
                     </fieldset>
                 </form>
@@ -92,8 +105,7 @@
         </p>
     </footer>
 
-    <script src="./static/dist/addParcel.min.js"></script>
-    <script src="static/js/main.js"></script>
+    <script src="static/dist/addParcel.min.js"></script>
 
 </body>
 

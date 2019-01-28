@@ -6,13 +6,13 @@ function getQueryParameter(key) {
     let url = new URL(window.location.href);
     return url.searchParams.get(key);
 }
-let parcelId = getQueryParameter(parcel_id);
+let parcel_id = getQueryParameter(parcel.parcel_id);
 
-api.get(`/parcels/${parcelId}`)
+api.get(`/parcels/${parcel_id}`)
 .then(res => res.json())
 .then(data => {
     console.log(data);
-    document.getElementById("parcel-name").value = data['parcel-name'];
+    document.getElementById("parcel-name").value = data['parcel_name'];
     document.getElementById("status").value = data['status'];
 });
 
@@ -31,7 +31,7 @@ form.addEventListener("submit", e =>{
         status
     };
     
-    api.update(`/parcels/${parcelId}`, data)
+    api.update(`/parcels/${parcel_id}/destination`, data)
     .then(res => res.json())
     .then(data => {
         if(data.message == "Updated successfully"){
@@ -39,7 +39,7 @@ form.addEventListener("submit", e =>{
             success.classList.remove('hide');
             success.classList.add('show');
             success.innerHTML = data.message;
-            setTimeout(() =>{window.location.href = './dashboard.html';},2000);
+            setTimeout(() =>{window.location.href = './profile.html';},2000);
         }else{
             success.classList.add('hide');
             warning.classList.remove('hide');

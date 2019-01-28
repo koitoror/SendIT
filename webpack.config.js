@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CleanWebpackPlugin = require("clean-webpack-plugin")
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
 
@@ -11,9 +13,10 @@ module.exports = {
         signup: "./UI/static/js/signup.js",
         signin: "./UI/static/js/signin.js",
         dashboard: "./UI/static/js/dashboard.js",
+        profile: "./UI/static/js/profile.js",
         addParcel: "./UI/static/js/addParcel.js",
         contents: "./UI/static/js/contents.js",
-        editParcel: "./UI/static/js/editParcel.js"
+        editOrder: "./UI/static/js/editOrder.js"
     },
     // define output point
     output:{
@@ -34,29 +37,43 @@ module.exports = {
         },
         {
             test:/\.css$/,
-            use:[
-                "style-loader",
-                "css-loader"
-            ]
+            use:ExtractTextPlugin.extract({
+                fallback:"style-loader",
+                use:["css-loader"],
+                publicPath: "/dist"
+            })
         },
         {
             test:/\.html$/,
             use:[ "html-loader"]
         },
         {
-            test:/\.(jpg | png)$/,
+            test:/\.(jpg|png)$/,
             use:[
                 {
                     loader: "file-loader",
                     options:{
                         name:"[name].[ext]",
-                        outputPath:"/images/",
-                        publicPath:"/images/"
+                        outputPath:"images/",
+                        publicPath:"images/"
                     }
                 }
                 
             ]
         }
-]
-    }
+    ]
+    },
+    
+    plugins: [
+        new ExtractTextPlugin({
+            filename: "app.css",
+            // disabled: false,
+            allChunks:true
+        }),
+        new HtmlWebpackPlugin({
+            title: "SendIT :: Parcel Delivery Service",
+            template: "UI/index.html"
+        }),
+        new CleanWebpackPlugin(["UI/static/dist"])
+    ]
 }

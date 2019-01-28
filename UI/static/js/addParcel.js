@@ -2,9 +2,13 @@
 
 import { api } from './api';
 
+const user = document.querySelector("#username")
+user.innerHTML = localStorage.getItem("username")
+
 const addParcel = document.querySelector(".myForm")
 const success = document.querySelector("#success")
 const warning = document.querySelector("#warning")
+
 
 
 addParcel.addEventListener("submit", e => {
@@ -22,6 +26,9 @@ addParcel.addEventListener("submit", e => {
         destination_location,
         status
     }
+
+    console.log(data)
+
     api.post("/parcels", data)
     .then(res => res.json())
     .then(data => {
@@ -30,7 +37,7 @@ addParcel.addEventListener("submit", e => {
             success.classList.remove('hide')
             success.classList.add('show')
             success.innerHTML = data.message
-            setTimeout(() =>{window.location.href = './dashboard.html'},2000)
+            setTimeout(() =>{window.location.href = './profile.html'},2000)
         }else{
             success.classList.add('hide')
             warning.classList.remove('hide')

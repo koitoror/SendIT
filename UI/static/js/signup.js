@@ -1,15 +1,15 @@
 /*jshint esversion: 6 */
 
 import { api } from './api';
-const signup = document.querySelector("#myForm")
-const success = document.querySelector('#success')
-const warning = document.querySelector('#warning')
+const signup = document.querySelector("#myForm1")
+const success = document.querySelector('#success1')
+const warning = document.querySelector('#warning1')
 
 signup.addEventListener('submit', e =>  {
     e.preventDefault()
-    const username = document.querySelector("#username").value
+    const username = document.querySelector("#username1").value
     const email = document.querySelector("#email").value
-    const password = document.querySelector("#password").value
+    const password = document.querySelector("#password1").value
     const confirm = document.querySelector("#password_confirm").value
 
     const data = {

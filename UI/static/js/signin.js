@@ -20,14 +20,25 @@ signin.addEventListener('submit', e =>  {
     .then(res => res.json())
     .then(data => {
         signin.classList.remove("loading");
-        if (data.message == "Logged in successfully"){
+        if (data.admin == true){
             localStorage.setItem("token", data.token)
             localStorage.setItem("username", username)
+            localStorage.setItem("user_id", data.user_id)            
             warning.classList.add('hide')
             success.classList.remove('hide')
             success.classList.add('show')
             success.innerHTML = data.message
             setTimeout(() =>{window.location.href = './dashboard.html'},2000)
+        }
+        if (data.admin == false){
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("username", username)
+            localStorage.setItem("user_id", data.user_id)            
+            warning.classList.add('hide')
+            success.classList.remove('hide')
+            success.classList.add('show')
+            success.innerHTML = data.message
+            setTimeout(() =>{window.location.href = './profile.html'},2000)
         }
         else{
             success.classList.add('hide')
