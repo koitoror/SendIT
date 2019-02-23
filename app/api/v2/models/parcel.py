@@ -73,7 +73,7 @@ class Parcel(object):
     def modify_parcel_admin_status(dict_cursor, cursor, status, parcel_id):
         data = Parcel.get_parcel_by_id(dict_cursor, parcel_id)
         if data["status"] == "DELIVERED":
-            api.abort(401, "Parcel order cannot be canceled since it has been delivered to the destination!")
+            api.abort(401, "Parcel order status cannot be changed since it has been delivered to the destination!")
         query = "UPDATE parcels SET status=%s WHERE (parcel_id=%s)"
         cursor.execute(query, (status, parcel_id))
 
