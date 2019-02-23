@@ -31,7 +31,7 @@ class UserRegister(Resource):
         user = User.get_user_by_email(dict_cursor, new_user['email'])
         if user:
             return {
-                'message':
+                'warning':
                 'Email exists, please login or register with another email'
             }, 400
         invalid_data = validate_user_data(new_user)
