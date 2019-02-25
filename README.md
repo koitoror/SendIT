@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.com/koitoror/SendIT.svg?branch=gh-pages)](https://travis-ci.com/koitoror/SendIT)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4b0023611bae4ec48725639d631ac2da)](https://www.codacy.com/app/koitoror/SendIT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=koitoror/SendIT&amp;utm_campaign=Badge_Grade)
 
 # SendIT
