@@ -6,8 +6,8 @@ branches:
   only:
   - master
   - gh-pages
-after_success:
-  - coveralls
+# after_success:
+#   - coveralls
 cache:
   directories:
   - node_modules
