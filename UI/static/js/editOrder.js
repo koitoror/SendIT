@@ -6,14 +6,14 @@ function getQueryParameter(key) {
     let url = new URL(window.location.href);
     return url.searchParams.get(key);
 }
-let parcel_id = getQueryParameter(parcel.parcel_id);
+let parcel_id = getQueryParameter('id');
 
 api.get(`/parcels/${parcel_id}`)
 .then(res => res.json())
 .then(data => {
-    console.log(data);
     document.getElementById("parcel-name").value = data['parcel_name'];
-    document.getElementById("status").value = data['status'];
+    document.getElementById("destination_location").value = data['destination_location'];
+
 });
 
 const success = document.querySelector("#success");
@@ -21,20 +21,24 @@ const warning = document.querySelector("#warning");
 
 const form = document.querySelector("#editForm");
 
+let user = document.querySelector("#username")
+user.innerHTML = localStorage.getItem("username");
+
+
 form.addEventListener("submit", e =>{
     e.preventDefault();
     let parcel_name = document.getElementById("parcel-name").value;
-    let status = document.getElementById("status").value;
+    let destination_location = document.getElementById("destination_location").value;
 
     const data = {
         parcel_name,
-        status
+        destination_location
     };
     
     api.update(`/parcels/${parcel_id}/destination`, data)
     .then(res => res.json())
     .then(data => {
-        if(data.message == "Updated successfully"){
+        if(data.message == "Destination updated successfully"){
             warning.classList.add('hide');
             success.classList.remove('hide');
             success.classList.add('show');
