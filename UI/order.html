@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SendIT :: Parcel Delivery Service</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" />
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" /> -->
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" /> -->
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
     <!-- Load icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 </head>
 
 <body>
@@ -79,11 +79,11 @@
                         <div class="form-group">
                                 <!-- Status -->
                                 <label for="status">Status</label>
-                                <select class="form-control">
-                                    <option selected id="status">    IN TRANSIT   </option>
-                                    <option>    DELIVERED    </option>
-                                    <option>    UNDELIVERED  </option>
-                                    <option>    CANCELED     </option>
+                                <select class="form-control" id="status">
+                                    <option selected>    IN TRANSIT   </option>
+                                    <option disabled=true>    DELIVERED    </option>
+                                    <option disabled=true>    UNDELIVERED  </option>
+                                    <option disabled=true>    CANCELED     </option>
                                 </select>
                                 <!-- <input type="text" id="status" class="form-control"> -->
                         </div>
@@ -93,7 +93,7 @@
                                 <button class="button bg-dark" type="submit">Place Order </button>
                         </div>
                         <div>
-                            <a href="profile.html" class="buttonz bg-dark">Place Order</a>
+                            <a href="profile.html" class="button bg-dark">Place Order</a>
                         </div>
                     </fieldset>
                 </form>
