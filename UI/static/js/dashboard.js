@@ -16,8 +16,7 @@ function loadParcels(){
         table.classList.remove("loading");
 
         let i = data.length
-
-        if(data) {
+        if(i > 0) {
             noOfParcels.innerHTML = i
             let rows = `<tr class="table">
                 <th>#</th>
@@ -30,9 +29,9 @@ function loadParcels(){
                 <th>PickUp Location</th>    
                 <th>Present Location</th>
                 <th>Destination</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                
+
+
                 </tr>`
             table.innerHTML = rows
             for (let parcel of data){
@@ -44,64 +43,66 @@ function loadParcels(){
                     <td>${parcel.parcel_name}</td>
                     <td>${parcel.price}</td>
                     <td>${parcel.date_ordered}</td>
-                    <td>
-                        <select id="status">
-                            <option selected>${parcel.status}</option>
-                            <option>    DELIVERED    </option>
-                            <option>    UNDELIVERED  </option>
-                            <option>    CANCELED     </option>
-                            <option>    IN TRANSIT   </option>
-                        </select>
+                    <td>${parcel.status}
+                        <button class="button button2 float-right"> 
+                            <a href="editOrderStatus.html?id=${parcel.parcel_id}" onclick="document.getElementById('id03').style.display='block'" style="width:auto;">EDIT <i class="fa fa-edit"></i></a>
+                        </button>
+                        
                     </td>
                     <td>${parcel.pickup_location}</td>
-                    <td class="input-wrapper"><input type="text" name="Present" id="present_location" value="${parcel.present_location}"></td>
+                    <td>${parcel.present_location}
+                        <button class="button button2 float-right"> 
+                            <a href="editOrderPresentLocation.html?id=${parcel.parcel_id}" onclick="document.getElementById('id04').style.display='block'" style="width:auto;">EDIT <i class="fa fa-edit"></i></a>
+                        </button>
+                    </td>
+                        
                     <td id="destination_location">${parcel.destination_location}</td>        
                     </tr>`
                 rows += tr
             
 
-                let td = document.createElement('td');
-                let link = document.createElement('a');
-                link.innerHTML = "Present";
-                link.classList.add('button');
-                link.classList.add("button2");
-                link.classList.add("float-right");
+                // let td = document.createElement('td');
+                // let link = document.createElement('a');
+                // link.innerHTML = "Present";
+                // link.classList.add('button');
+                // link.classList.add("button2");
+                // link.classList.add("float-right");
                 
-                link.addEventListener("click", () => {
-                    let present_location = document.getElementById("present_location").value;
-                    let status = document.getElementById("status").value;
+                // link.addEventListener("click", () => {
+                //     let present_location = document.getElementById("present_location").value;
+                //     let status = document.getElementById("status").value;
 
-                    const data = {
-                        present_location,
-                        status
-                    };
+                //     const data = {
+                //         present_location,
+                //         status
+                //     };
 
-                    editPresent(parcel.parcel_id, data);
-                });
-                td.appendChild(link);
-                tr.appendChild(td);
+                //     editPresent(parcel.parcel_id, data);
+                // });
+                // td.appendChild(link);
+                // tr.appendChild(td);
 
                                 
-                let td0 = document.createElement('td');
-                let link0 = document.createElement('a');
-                link0.innerHTML = "Status";
-                link0.classList.add('button');
-                link0.classList.add("button2");
-                link0.classList.add("float-right");
+                // let td0 = document.createElement('td');
+                // let link0 = document.createElement('a');
+                // link0.innerHTML = "Status";
+                // link0.classList.add('button');
+                // link0.classList.add("button2");
+                // link0.classList.add("float-right");
                 
-                link0.addEventListener("click", () => {
-                    let present_location = document.getElementById("present_location").value;
-                    let status = document.getElementById("status").value;
+                // link0.addEventListener("click", () => {
+                //     let present_location = document.getElementById("present_location").value;
+                //     let status = document.getElementById("status").value;
 
-                    const data = {
-                        present_location,
-                        status
-                    };
+                //     const data = {
+                //         present_location,
+                //         status
+                //     };
                     
-                    changeStatus(parcel.parcel_id, data);
-                });
-                td0.appendChild(link0);
-                tr.appendChild(td0);
+                //     changeStatus(parcel.parcel_id, data);
+                // });
+                // td0.appendChild(link0);
+                // tr.appendChild(td0);
 
                 let td1 = document.createElement('td');
                 let link1 = document.createElement('a');
@@ -121,7 +122,8 @@ function loadParcels(){
             
         }
 
-        }else{
+        }else if (i = 0) {
+            console.log(i)
             table.innerHTML = "";
             noOfParcels.innerHTML = 0;
             view.classList.add("alert", "alert-warning")
@@ -137,47 +139,47 @@ window.addEventListener("load", ()=>{
 })
 
 
-function editPresent(parcel_id, data){
-    if ( confirm("Do you want to edit this parcel?")){
-        api.update(`/parcels/${parcel_id}/presentLocation`, data)
-        .then(res => res.json())
-        .then(data => {
-            let info = document.getElementById("info")
-            info.classList.add("alert", "alert-success")
-            info.innerHTML = data.message
-            info.style.display = "block"
+// function editPresent(parcel_id, data){
+//     if ( confirm("Do you want to edit this parcel?")){
+//         api.update(`/parcels/${parcel_id}/presentLocation`, data)
+//         .then(res => res.json())
+//         .then(data => {
+//             let info = document.getElementById("info")
+//             info.classList.add("alert", "alert-success")
+//             info.innerHTML = data.message
+//             info.style.display = "block"
 
-            setTimeout(() => {
-                info.style.display = ""
-                loadParcels()
-            }, 2000)
+//             setTimeout(() => {
+//                 info.style.display = ""
+//                 loadParcels()
+//             }, 2000)
 
-            setTimeout(() =>{window.location.href = './dashboard.html'},4000)
+//             setTimeout(() =>{window.location.href = './dashboard.html'},4000)
 
-        })
-    }
-}
+//         })
+//     }
+// }
 
-function changeStatus(parcel_id, data){
-    if ( confirm("Do you want to edit this parcel?")){
-        api.update(`/parcels/${parcel_id}/status`, data)
-        .then(res => res.json())
-        .then(data => {
-            let info1 = document.getElementById("info1")
-            info1.classList.add("alert", "alert-success")
-            info1.innerHTML = data.message
-            info1.style.display = "block"
+// function changeStatus(parcel_id, data){
+//     if ( confirm("Do you want to edit this parcel?")){
+//         api.update(`/parcels/${parcel_id}/status`, data)
+//         .then(res => res.json())
+//         .then(data => {
+//             let info1 = document.getElementById("info1")
+//             info1.classList.add("alert", "alert-success")
+//             info1.innerHTML = data.message
+//             info1.style.display = "block"
 
-            setTimeout(() =>{
-                info1.style.display = ""
-                loadParcels()
-            }, 2000)
+//             setTimeout(() =>{
+//                 info1.style.display = ""
+//                 loadParcels()
+//             }, 2000)
 
-            setTimeout(() =>{window.location.href = './dashboard.html'},4000)
+//             setTimeout(() =>{window.location.href = './dashboard.html'},4000)
 
-        })
-    }
-}
+//         })
+//     }
+// }
 
 
 function deleteParcel(parcel_id){
