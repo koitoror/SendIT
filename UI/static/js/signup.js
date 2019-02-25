@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 import { api } from './api';
-const signup = document.querySelector("#myForm1")
+const signup = document.querySelector("#signUp")
 const success = document.querySelector('#success1')
 const warning = document.querySelector('#warning1')
 
@@ -27,7 +27,10 @@ signup.addEventListener('submit', e =>  {
             success.classList.remove('hide')
             success.classList.add('show')
             success.innerHTML = data.message
-            setTimeout(() =>{window.location.href = './index.html'},2000)
+            // setTimeout(() =>{window.location.assign = './index.html'},2000)
+            setTimeout(() => window.location.assign('./index.html'), 2000)
+
+            
         }
         else{
             success.classList.add('hide')
