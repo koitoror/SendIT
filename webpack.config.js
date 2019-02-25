@@ -16,7 +16,13 @@ module.exports = {
         profile: "./UI/static/js/profile.js",
         addParcel: "./UI/static/js/addParcel.js",
         contents: "./UI/static/js/contents.js",
-        editOrder: "./UI/static/js/editOrder.js"
+        editOrder: "./UI/static/js/editOrder.js",
+        editOrderStatus: "./UI/static/js/editOrderStatus.js",
+        editOrderPresentLocation: "./UI/static/js/editOrderPresentLocation.js",
+        editOrderDestination: "./UI/static/js/editOrderDestination.js",
+        editOrderToCancel: "./UI/static/js/editOrderToCancel.js",
+
+
     },
     // define output point
     output:{
