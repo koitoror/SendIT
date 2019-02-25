@@ -31,9 +31,9 @@ function loadParcels(){
                 <th>PickUp Location</th>    
                 <th>Present Location</th>
                 <th>Destination</th>
-                <th></th>
-                <th></th>
-                <th></th>
+             
+                
+                
                 </tr>`
             table.innerHTML = rows
             for (let parcel of data){
@@ -45,61 +45,64 @@ function loadParcels(){
                     <td>${parcel.parcel_name}</td>
                     <td>${parcel.price}</td>
                     <td>${parcel.date_ordered}</td>
-                    <td>
-                        <select>
-                            <option selected id="status" value="">${parcel.status}</option>
-                            <option>    CANCELED     </option>
-                        </select>
+                    <td>${parcel.status}
+                        <button class="button button1 float-right"> 
+                            <a href="editOrderToCancel.html?id=${parcel.parcel_id}">CANCEL <i class="fa fa-times-circle""></i></a>
+                        </button>
                     </td>
                     <td>${parcel.pickup_location}</td>
                     <td>${parcel.present_location}</td>
-                    <td class="input-wrapper"><input type="text" name="Destination" id="destination_location" value="${parcel.destination_location}"></td>        
+                    <td>${parcel.destination_location}
+                        <button class="button button2 float-right"> 
+                            <a href="editOrderDestination.html?id=${parcel.parcel_id}">EDIT <i class="fa fa-edit"></i></a>
+                        </button>
+                    </td>
                     </tr>`
                 rows += tr
-                
-                
-                let td = document.createElement('td');
-                let link = document.createElement('a');
-                link.innerHTML = "Edit";
-                link.classList.add('button');
-                link.classList.add("button2");
-                link.classList.add("float-right");
-                
-                link.addEventListener("click", () => {
-                    let destination_location = document.getElementById("destination_location").value;
-                    let status = document.getElementById("status").value;
 
-                    const data = {
-                        destination_location,
-                        status
-                    };
+                
+                // let td = document.createElement('td');
+                // let link = document.createElement('a');
+                // link.innerHTML = "Edit";
+                // link.classList.add('button');
+                // link.classList.add("button2");
+                // link.classList.add("float-right");
+                
+                // link.addEventListener("click", () => {
+                //     let destination_location = document.getElementById("destination_location").value;
+                //     let status = document.getElementById("status").value;
+
+                //     const data = {
+                //         destination_location,
+                //         status
+                //     };
                     
-                    editDestination(parcel.parcel_id, data);
-                });
-                td.appendChild(link);
-                tr.appendChild(td);
+                //     editDestination(parcel.parcel_id, data);
+                // });
+                // td.appendChild(link);
+                // tr.appendChild(td);
 
                 
-                let td0 = document.createElement('td');
-                let link0 = document.createElement('a');
-                link0.innerHTML = "Cancel";
-                link0.classList.add('button');
-                link0.classList.add("button2");
-                link0.classList.add("float-right");
+                // let td0 = document.createElement('td');
+                // let link0 = document.createElement('a');
+                // link0.innerHTML = "Cancel";
+                // link0.classList.add('button');
+                // link0.classList.add("button2");
+                // link0.classList.add("float-right");
                 
-                link0.addEventListener("click", () => {
-                    let destination_location = document.getElementById("destination_location").value;
-                    let status = "CANCELED";
+                // link0.addEventListener("click", () => {
+                //     let destination_location = document.getElementById("destination_location").value;
+                //     let status = "CANCELED";
 
-                    const data = {
-                        destination_location,
-                        status
-                    };
+                //     const data = {
+                //         destination_location,
+                //         status
+                //     };
                     
-                    cancelOrder(parcel.parcel_id, data);
-                });
-                td0.appendChild(link0);
-                tr.appendChild(td0);
+                //     cancelOrder(parcel.parcel_id, data);
+                // });
+                // td0.appendChild(link0);
+                // tr.appendChild(td0);
 
 
                 let td1 = document.createElement('td');
@@ -135,47 +138,47 @@ window.addEventListener("load", ()=> {
 })
 
 
-function cancelOrder(parcel_id, data){
-    if ( confirm("Do you want to edit this parcel?")){
-        api.update(`/parcels/${parcel_id}/cancel`, data)
-        .then(res => res.json())
-        .then(data => {
-            let info1 = document.getElementById("info1")
-            info1.classList.add("alert", "alert-success")
-            info1.innerHTML = data.message
-            info1.style.display = "block"
+// function cancelOrder(parcel_id, data){
+//     if ( confirm("Do you want to edit this parcel?")){
+//         api.update(`/parcels/${parcel_id}/cancel`, data)
+//         .then(res => res.json())
+//         .then(data => {
+//             let info1 = document.getElementById("info1")
+//             info1.classList.add("alert", "alert-success")
+//             info1.innerHTML = data.message
+//             info1.style.display = "block"
 
-            setTimeout(() =>{
-                info1.style.display = ""
-                loadParcels()
-            }, 2000)
+//             setTimeout(() =>{
+//                 info1.style.display = ""
+//                 loadParcels()
+//             }, 2000)
 
-            setTimeout(() =>{window.location.href = './profile.html'},4000)
+//             setTimeout(() =>{window.location.href = './profile.html'},4000)
 
-        })
-    }
-}
+//         })
+//     }
+// }
 
-function editDestination(parcel_id, data){
-    if ( confirm("Do you want to edit this parcel?")){
-        api.update(`/parcels/${parcel_id}/destination`, data)
-        .then(res => res.json())
-        .then(data => {
-            let info = document.getElementById("info")
-            info.classList.add("alert", "alert-success")
-            info.innerHTML = data.message
-            info.style.display = "block"
+// function editDestination(parcel_id, data){
+//     if ( confirm("Do you want to edit this parcel?")){
+//         api.update(`/parcels/${parcel_id}/destination`, data)
+//         .then(res => res.json())
+//         .then(data => {
+//             let info = document.getElementById("info")
+//             info.classList.add("alert", "alert-success")
+//             info.innerHTML = data.message
+//             info.style.display = "block"
 
-            setTimeout(()=> {
-                info.style.display = ""
-                loadParcels()
-            }, 4000)
+//             setTimeout(()=> {
+//                 info.style.display = ""
+//                 loadParcels()
+//             }, 4000)
 
-            setTimeout(() =>{window.location.href = './profile.html'},6000)
+//             setTimeout(() =>{window.location.href = './profile.html'},6000)
 
-        })
-    }
-}
+//         })
+//     }
+// }
 
 function deleteParcel(parcel_id){
     if ( confirm("Do you want to delete this parcel?")){
