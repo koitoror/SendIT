@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang= "en" >
+    
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SendIT :: Parcel Delivery Service</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" type="text/css" media="screen" href="static/css/signup.css" /> -->
+        <!-- <link rel="stylesheet" type="text/css" media="screen" href="static/css/login.css" /> -->
+        <link rel="stylesheet" type="text/css" media="screen" href="static/css/style.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="static/css/dashboard.css" />
+        <!-- Load icon library -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    </head>
+
+    <body>
+        <header class="header">
+                <a href="index.html" class="logo">SendIT</a>
+                <div class="header-right">
+                    <a class="active" href="order.html">New Order</a>
+                    <a href="profile.html">User Profile</a>
+                    <!-- <a href="index.html">Log Out</a> -->
+                    <a onclick="localStorage.clear(); window.location.href = 'index.html';">Logout</a>
+                </div>
+                
+        </header>
+
+        <section id="dashboard">
+                <h2>Welcome, <small style="color:blue" id="username"></small></h2>
+                <p><em>SendIT</em> - the fastest web-app for parcel delivery's</p>
+                <h3>Dashboard, <small>Non-Admin(User)</small></h3>
+                <div class="container">
+                    <div id="avatar">
+                        <img src="static/images/attendant-avatar.jpg" alt="Image">
+                    </div>
+                    <br><br>
+                    <hr>
+                    <!-- <div class="float-right">
+                        <p><b>Delivered </b>(1)</p>
+                        <p><b>In-Transit </b>(3)</p>
+                    </div> -->
+                    
+                </div>
+        </section>
+
+        <form class="myForm" id="editForm"> 
+            <fieldset>
+                <legend class="">Edit Order</legend>
+                <div id="success" class="alert alert-success hide"></div>
+                <div id="warning" class="alert alert-warning hide"></div> 
+                <div class="form-group">
+                    <!-- Username -->
+                    <label for="parcel-name">Parcel-Name</label>
+                    <input type="text" id="parcel-name" class="form-control">
+                </div>
+            
+                <div class="form-group">
+                    <!-- E-mail -->
+                    <label for="contents">Destination</label>
+                    <!-- <textarea id="status" class="form-control" rows="10"></textarea> -->
+                    <input type="text" id="destination_location" class="form-control">
+
+                </div>
+                <div class="form-group">
+                    <!-- Button -->
+                    <button type="submit" class="button bg-dark">Edit Order</button>
+                </div>
+            </fieldset>
+        </form>
+        <footer class="text-center bg-dark">
+                <p>
+                    SendIT, Copyright <sup>&copy;</sup> 2018
+                </p>
+        </footer>
+    <script src="static/dist/editOrder.min.js"></script>
+    </body>
+</html>
