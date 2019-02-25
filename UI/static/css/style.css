@@ -258,8 +258,8 @@ h2 {
 }
 
 input, textarea, select, button {
-  font-family: Consolas, monospace;
-  font: 400 10px;
+  /* font-family: Consolas, monospace;
+  font: 400 10px; */
 }
 
 #description {
