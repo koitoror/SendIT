@@ -6,6 +6,7 @@ const user = document.querySelector("#username")
 user.innerHTML = localStorage.getItem("username")
 
 const addParcel = document.querySelector(".myForm")
+// const addParcel = document.querySelector("#myForm")
 const success = document.querySelector("#success")
 const warning = document.querySelector("#warning")
 
@@ -37,7 +38,10 @@ addParcel.addEventListener("submit", e => {
             success.classList.remove('hide')
             success.classList.add('show')
             success.innerHTML = data.message
-            setTimeout(() =>{window.location.href = './profile.html'},2000)
+            // setTimeout(() =>{window.location.href = './profile.html'},2000)
+            setTimeout(() => window.location.assign('./profile.html'), 2000)
+
+
         }else{
             success.classList.add('hide')
             warning.classList.remove('hide')
